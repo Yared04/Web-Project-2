@@ -1,6 +1,8 @@
 # Web-Project-2  GADA
-The general idea of "GADA" is to create a web application where some users can post a specific issues related to funding and other users can lend a helping hand.
+The general idea of "GADA"which means gift is to create a web application where some users can post a specific issues related to funding and other users can lend a helping hand.
 currently In our country this is done through ethio telecom using text messages like 8100. And our plan is to modernize this way by developing web application where every thing is direct and easy.
+
+
 For this project we will have 3 type of users;
   1. Administrators
      - that have full previlages to all CRUD cpabilities towards all feature like adding/removing clients and posts 
@@ -14,7 +16,10 @@ For this project we will have 3 type of users;
      - login(sign up if first time)
      - can only see the posts and provide fundings
      - will have their own profile pages and can manage it
-BUSINESS FEATURES
+
+
+
+**BUSINESS FEATURES**
 1.
 - posts,specific issues that needs funding 
 - chat, direct conversation between user giving the funding and the client that requires it
