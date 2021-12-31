@@ -1,6 +1,6 @@
-# Web-Project-2
-The general idea of our project is to create a web application where some users can post a specific issues related to funding and other users can lend a helping hand.
-currently In our country this is done through ethio telecom using text messages like 8100. And our plan is to modernize this way by developing web application where every thing is direct and easy. 
+# Web-Project-2  GADA
+The general idea of "GADA" is to create a web application where some users can post a specific issues related to funding and other users can lend a helping hand.
+currently In our country this is done through ethio telecom using text messages like 8100. And our plan is to modernize this way by developing web application where every thing is direct and easy.
 For this project we will have 3 type of users;
   1. Administrators
      - that have full previlages to all CRUD cpabilities towards all feature like adding/removing clients and posts 
@@ -22,3 +22,15 @@ BUSINESS FEATURES
     - The funding will be done via bank transfer, 
 2. 
  - advertisements, where different orgnaizations advertise their products
+
+
+
+
+
+
+GROUP MEMBERS
+NATNAEL TADELE UGR/0415/12
+SHALOM GIRMA   UGR/0528/12
+YARED NAMSSI   UGR/1548/12
+YARED TEGEGN   UGR/7066/12
+ZERIHUN MOGES  UGR/8349/12
