@@ -22,11 +22,12 @@ For this project we will have 3 type of users;
 **BUSINESS FEATURES**
 1.
 - posts,specific issues that needs funding 
-- chat, direct conversation between user giving the funding and the client that requires it
 - funding, where a user can provide funds
     - The funding will be done via bank transfer, 
 2. 
- - advertisements, where different orgnaizations advertise their products
+  - chat, direct conversation between user giving the funding and the client that requires it
+  - advertisements, where different orgnaizations advertise their products
+
 
 
 
