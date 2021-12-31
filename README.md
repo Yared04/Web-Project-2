@@ -1,4 +1,4 @@
-# Web-Project-2  GADA(ጋዳ)
+# GADA(ጋዳ) ETHIOPIA
 The general idea of "GADA"which means gift is to create a web application where some users can post a specific issues related to funding and other users can lend a helping hand.
 currently In our country this is done through ethio telecom using text messages like 8100. And our plan is to modernize this way by developing web application where every thing is direct and easy.
 
