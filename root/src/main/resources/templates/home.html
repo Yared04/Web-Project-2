@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <link th:href="@{\css\bootstrap.min.css}" rel="stylesheet" />
+    <title>Gada Ethioia</title>
+</head>
+
+<body th:object = ${posts}>
+    <div class="container"><h1>Welcome to Gada Ethioia</h1></div>
+    <div th:each = "t : ${titles}" class="container">
+            <h1 th:text = ${t.title}> The GERD</h1>
+            <p th:text = ${t.description}> The discription goes here</p>
+            <h5 th:text = ${t.date}>12/01/2022</h5>
+    </div>
+    <script th:src="@{\js\bootstrap.bundle.min.js}"></script>
+</body>
+
+</html>
