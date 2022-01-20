@@ -16,6 +16,16 @@
 <body >
     <div class="container"><h1>Welcome to Gada Ethioia</h1></div>
     <a href="/post" class="btn btn-secondary">Add posts</a>
+    <div sec:authorize="isAuthenticated()">
+        Welcome <span sec:authentication="name">Username</span> &nbsp;
+        <span sec:authentication="principal.authorities">Role</span>
+    </div>
+    <div>
+
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" class="btn btn-primary" value="Log Out">
+        </form>
+    </div>
     
 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
