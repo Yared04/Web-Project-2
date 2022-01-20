@@ -22,7 +22,7 @@ public class UserController {
 	private UserService service;
 	@GetMapping("")
 	public String viewHomePage() {
-		return "index";
+		return "home";
 	}
 	
 	@GetMapping("/register")
@@ -36,7 +36,7 @@ public class UserController {
 	@PostMapping("/register")
 	public String processRegister(User user) {
 	 service.saveUserWithDefaultRole(user);
-		return "index";
+		return "home";
 	}
 	@GetMapping("/login")
 	public String showLoginPage(Model model) {
