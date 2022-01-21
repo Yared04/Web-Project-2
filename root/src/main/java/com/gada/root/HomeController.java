@@ -44,6 +44,7 @@ public class HomeController {
 
     @GetMapping("/post")
     public String addPosts(Posts post) {
+    
         return "addPosts";
 
     }
