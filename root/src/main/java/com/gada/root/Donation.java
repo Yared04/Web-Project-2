@@ -10,6 +10,7 @@ import javax.persistence.ManyToOne;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,8 +24,8 @@ public class Donation{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
-    @Min(value=5, message="Donation must be greater than or equal to 5")  
+    @NotBlank(message = "You haven't entered account")
+    @Min(value=5, message="minimum allowed donation is 5 ETB")  
     private int amount;
 
     private String donatorName;
