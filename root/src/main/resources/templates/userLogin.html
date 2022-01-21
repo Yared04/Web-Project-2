@@ -4,7 +4,7 @@
 <head>
     <meta charset="ISO-8859-1">
     <title>Gada-Login</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link th:href="@{\css\bootstrap.min.css}" rel="stylesheet" />
 
 </head>
 
@@ -25,6 +25,9 @@
                     <input type="password" th:field="*{password}" class="form-control" required minlength="6" maxlength="10" />
 
                 </div>
+            </div>
+            <div th:if="${param.error}" class="alert alert-error" style="color:red;">
+                Invalid Username or Password.
             </div>
             <div>
                 <button type="submit" class="btn btn-primary">Log In</button>

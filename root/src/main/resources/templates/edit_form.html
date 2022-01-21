@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Gada-Login</title>
+    <link th:href="@{\css\bootstrap.min.css}" rel="stylesheet">
+
+</head>
+
+<body>
+    <form th:action="@{/users/save}" th:object="${user}" method="post" style="max-width: 600px; margin: 0 auto;">
+        <input type="hidden" th:field="*{user_id}" />
+        <div class="m-5">
+            <div class="form-group row">
+                <label class="col-7 col-form-label">Username: </label>
+                <div class="col-8">
+                    <input type="text" th:field="*{username}" class="form-control" required />
+                </div>
+            </div>
+
+
+            <input type="hidden" th:field="*{password}" class="form-control" required minlength="6" maxlength="10" />
+
+
+            <div class="form-group row">
+                <label class="col-7 col-form-label">First Name: </label>
+                <div class="col-8">
+                    <input type="text" th:field="*{firstName}" class="form-control" required minlength="2" maxlength="20" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-7 col-form-label">Last Name: </label>
+                <div class="col-8">
+                    <input type="text" th:field="*{lastName}" class="form-control" required minlength="2" maxlength="20" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-7 col-form-label">Roles: </label>
+                <div class="col-8">
+                    <th:block th:each="role: ${listRoles}">
+                        <input type="checkbox" th:field="*{roles}" th:text="${role.name}" th:value="${role.id}" class="m-2" />
+                    </th:block>
+                </div>
+            </div>
+
+            <div>
+                <button type="submit" class="btn btn-primary">Update</button>
+            </div>
+        </div>
+    </form>
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+
+</html>

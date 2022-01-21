@@ -17,13 +17,16 @@ public class UserController {
 
 	@Autowired
 	private UserRepository userRepo;
-	
+	@Autowired
+	private PostsRepositary postRepo;
+	@Autowired
+	private PostService service2;
 	@Autowired
 	private UserService service;
-	@GetMapping("")
-	public String viewHomePage() {
-		return "home";
-	}
+	// @GetMapping("")
+	// public String viewHomePage() {
+	// 	return "home";
+	// }
 	
 	@GetMapping("/register")
 	public String showRegistrationForm(Model model) {
@@ -36,11 +39,52 @@ public class UserController {
 	@PostMapping("/register")
 	public String processRegister(User user) {
 	 service.saveUserWithDefaultRole(user);
-		return "home";
+		return "redirect:/login";
 	}
 	@GetMapping("/login")
 	public String showLoginPage(Model model) {
 		model.addAttribute("user", new User());
 		return "userLogin";}
-	
+	@GetMapping("/users")
+	public String listUsers(Model model) {
+		List<User> listUsers = service.listAll();
+		model.addAttribute("listUsers", listUsers);
+			
+		return "users";
+	}
+	@GetMapping("/users/edit/{id}")
+public String editUser(@PathVariable("id") Integer id, Model model) {
+    User user = service.get(id);
+    List<Role> listRoles = service.listRoles();
+    model.addAttribute("user", user);
+    model.addAttribute("listRoles", listRoles);
+    return "edit_form";
+}
+@GetMapping("/users/delete/{id}")
+public String deleteUser(@PathVariable("id") Integer id, Model model) {
+    userRepo.deleteById(id);
+    return "redirect:/users";
+}
+@GetMapping("/listpost")
+public String listPosts(Model model) {
+	List<Posts> listPosts = service2.listAll();
+		model.addAttribute("listPosts", listPosts);	
+	return "posts";
+}
+@GetMapping("/listpost/edit/{id}")
+public String editPost(@PathVariable("id") Long id, Model model) {
+    Posts post = service2.get(id);
+    return "";
+}
+@GetMapping("/listpost/delete/{id}")
+public String deletePost(@PathVariable("id") Long id, Model model) {
+    postRepo.deleteById(id);
+    return "redirect:/listpost";
+}
+@PostMapping("/users/save")
+public String saveUser(User user) {
+    service.save(user);
+     
+    return "redirect:/users";
+}
 }

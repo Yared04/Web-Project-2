@@ -1,7 +1,13 @@
 package com.gada.root;
 
-import org.springframework.data.repository.CrudRepository;
+import java.util.Optional;
 
-public interface PostsRepositary extends CrudRepository<Posts,Long>  {
-    
+import org.springframework.data.jpa.repository.JpaRepository;
+
+
+public interface PostsRepositary extends JpaRepository<Posts,Long>  {
+   
+    public Optional<Posts> findById(Long L);  
+
+
 }

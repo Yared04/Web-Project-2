@@ -26,8 +26,16 @@ userRepo.save(user);
     }
     public List<User> listAll(){
         return userRepo.findAll();
-
         
     }
-    
+    public User get(Integer id) {
+        return userRepo.findById(id).get();
+    }
+     
+    public List<Role> listRoles() {
+        return roleRepo.findAll();
+    }
+    public void save(User user) {
+        userRepo.save(user);
+    }
 }
