@@ -56,13 +56,17 @@ public class Posts {
     private Long accountNumber;
     private LocalDateTime date;
 
-    @NotNull
-    @NotBlank(message = "*Short description is required!")
+    
     private String thyme;
-    @NotNull(message = "*Goal is required!")
+ 
     private Long goal;
-    @NotBlank(message = "*Deadline date is required!")
+   
     private String deadline;
+    private Double donations;
+
+    public void addDonation(Double donation){
+        this.donations += donation;
+    }
     
 
 

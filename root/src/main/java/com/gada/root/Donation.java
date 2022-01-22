@@ -40,4 +40,6 @@ public class Donation{
 
     @ManyToOne
     private Posts post;
+
+    
 }

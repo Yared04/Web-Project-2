@@ -42,13 +42,11 @@ public class FundraiserController {
         Posts posts = this.repo.findPostById(postId);
         model.addAttribute("post", posts);
         List<Donation> donations = this.dRepo.findDonationByPostId(posts);
-        Double total = 0.0;
+        
         Integer donationsAmount = donations.size();
-        for (Donation d: donations) {
-            total += d.getAmount();
-        }
-        model.addAttribute("totalAmount" , total );
+    
         model.addAttribute("donations" , donationsAmount );
+        model.addAttribute("Donations", donations);
         model.addAttribute("com",new Comment());
         List<Comment> comments = new ArrayList<>();
         cRepo.findByPostId(posts.getId()).forEach(i -> comments.add(i));
