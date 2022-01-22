@@ -114,8 +114,8 @@
                 </div>
                 <div class="product-body">
                     
-                    <h3 class="product-name" th:text=${t.title}><a href="#">product name goes here</a></h3>
-                    <p class="product-category"  th:text = ${t.description}>Category</p>
+                    <a th:href="@{'/fundraiser/'+${t.id}}"><h3 class="product-name" th:text=${t.title}>product name goes here</h3></a>
+                    <!-- <p class="product-category"  th:text = ${t.description}>Category</p> -->
                    
                     <div class="product-rating">
                     </div>
