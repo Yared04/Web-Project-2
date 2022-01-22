@@ -8,6 +8,36 @@
 </head>
 
 <body>
+    <header class="p-2 bg-dark text-white">
+        <div class="container">
+         
+          <div class="d-flex flex-wrap justify-content-lg-start">
+            <a class="navbar-brand text-white mr-auto mr-lg-0 fs-1" href="#">GEDA</a>
+  
+  
+            <ul
+              class="nav col-12 align-items-end col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"
+            >
+            <li><a href="/" class="nav-link px-2 text-white">Home</a></li>
+              <li><a href="#" class="nav-link px-2 text-white">Campaign Dashboard</a></li>
+              <li>  <a class="nav-link px-2 text-white" href="#">Notifications</a></li>
+            </ul>
+  
+            <div class="text-end">
+              <span sec:authorize="!isAuthenticated()">
+                <form th:action="@{/login}" method="get">
+                  <input
+                    type="submit"
+                    class="btn btn-sm btn-outline-light me-2"
+                    value="Log In"
+                  />
+                </form>
+                </span>
+            </div>
+          </div>
+        </div>
+      </header>
+      <main class="min-vh-100">
     <div class="container text-center">
         <div>
             <h1>Sign Up to GADA</h1>
@@ -50,6 +80,48 @@
         </div>
         </form>
     </div>
+</main>
+<footer class="text-center text-white bg-dark">
+    <div class="container pt-3">
+      <section class="mb-3">
+        <a
+          class="btn btn-link btn-floating text-white btn-lg m-1"
+          href="#!"
+          role="button"
+          data-mdb-ripple-color="dark"
+          ><i class="fab fa-facebook-f"></i
+        ></a>
+        <a
+          class="btn btn-link btn-floating text-white btn-lg m-1"
+          href="#!"
+          role="button"
+          data-mdb-ripple-color="dark"
+          ><i class="fab fa-twitter"></i
+        ></a>
+        <a
+          class="btn btn-link btn-floating text-white btn-lg m-1"
+          href="#!"
+          role="button"
+          data-mdb-ripple-color="dark"
+          ><i class="fab fa-instagram"></i
+        ></a>
+        <a
+          class="btn btn-link btn-floating text-white btn-lg m-1"
+          href="#!"
+          role="button"
+          data-mdb-ripple-color="dark"
+          ><i class="fab fa-github"></i
+        ></a>
+      </section>
+    </div>
+    <div class="text-center p-2" style="background-color: rgba(0, 0, 0, 0.2)">
+      &copy; 2020 <b>GADA</b> All rights reserved.
+    </div>
+  </footer>
+  <script
+    src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"
+    data-auto-a11y="true"
+  ></script>
 
     <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 </body>
