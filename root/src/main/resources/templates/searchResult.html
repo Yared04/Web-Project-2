@@ -3,8 +3,8 @@
 
 <head>
     <meta charset="ISO-8859-1">
-    <title>Gada-Login</title>
-    <link th:href="@{\css\bootstrap.min.css}" rel="stylesheet">
+    <title></title>
+    <link th:href="@{\css\bootstrap.min.css}" rel="stylesheet" />
 
 </head>
 
@@ -13,7 +13,7 @@
         <div class="container">
           <div class="d-flex flex-wrap justify-content-lg-start">
             <a class="navbar-brand text-white mr-auto mr-lg-0 fs-1" href="#">GEDA</a>
-    
+  
             <ul
               class="nav col-12 col-lg-auto align-items-end me-lg-auto mb-2 justify-content-center mb-md-0"
             >
@@ -33,12 +33,23 @@
                       class="btn btn-sm btn-light"
                       value="Log Out"
                     />
-                    <a href="/post" class="text-decoration-none">
-                        <button type="button" class="btn btn-sm btn-success">
-                          Add Post
-                        </button>
-                      </a>
                   </form>
+                  </span>
+                  <span sec:authorize="!isAuthenticated()">
+                    <form th:action="@{/login}" method="get">
+                      <input
+                        type="submit"
+                        class="btn btn-sm btn-primary"
+                        value="Log In"
+                      />
+                   
+                   
+                      <input  th:action="@{/register}" 
+                        type="submit"
+                        class="btn btn-sm btn-primary"
+                        value="Sign Up"
+                      />
+                    </form>
                   </span>
                 <span sec:authorize="hasAnyAuthority('CLIENT', 'ADMIN')">
                   <span class="dropdown col">
@@ -65,48 +76,31 @@
         </div>
       </header>
       <main class="min-vh-100">
-    <form th:action="@{/users/save}" th:object="${user}" method="post" style="max-width: 600px; margin: 0 auto;">
-        <input type="hidden" th:field="*{user_id}" />
-        <div class="m-5">
-            <div class="form-group row">
-                <label class="col-7 col-form-label">Username: </label>
-                <div class="col-8">
-                    <input type="text" th:field="*{username}" class="form-control" required />
-                </div>
+    
+    <div class="container">
+        <div class="row m-0 justify-content-center ">
+            <div class="d-flex flex-column col-6 vh-100 align-content-center justify-content-center" th:if="${post.size() == 0}">
+                <img class="w-lg-25 w-md-50 w-50  m-3 align-self-center"src="images/noresult1.png" alt="">
+                <h3 class="muted-text text-center">Oops No result was found!</h3>
             </div>
-
-
-            <input type="hidden" th:field="*{password}" class="form-control" required minlength="6" maxlength="10" />
-
-
-            <div class="form-group row">
-                <label class="col-7 col-form-label">First Name: </label>
-                <div class="col-8">
-                    <input type="text" th:field="*{firstName}" class="form-control" required minlength="2" maxlength="20" />
-                </div>
+            
+            <div class="my-3 p-3 bg-body rounded shadow-sm col-lg-10 col-12" th:each = "t : ${post}">
+                <div class="row g-0">
+                  <div class="col-md-4">
+                    <img th:src="|data:image;base64,${t.Base64Img}|" class="img-fluid rounded-start" alt="...">
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h5 class="card-title" th:text=${t.title}>title</h5>
+                      <p class="card-text" th:text = ${t.description}></p>
+                      <p class="card-text">Posted on <small class="text-muted" th:text=${t.date}> </small></p>
+                      <a th:href="@{'/fundraiser/'+${t.id}}" class="btn btn-warning flex-grow-1">Donate</a>
+                    </div>
+                  </div>
             </div>
-
-            <div class="form-group row">
-                <label class="col-7 col-form-label">Last Name: </label>
-                <div class="col-8">
-                    <input type="text" th:field="*{lastName}" class="form-control" required minlength="2" maxlength="20" />
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label class="col-7 col-form-label">Roles: </label>
-                <div class="col-8">
-                    <th:block th:each="role: ${listRoles}">
-                        <input type="checkbox" th:field="*{roles}" th:text="${role.name}" th:value="${role.id}" class="m-2" />
-                    </th:block>
-                </div>
-            </div>
-
-            <div>
-                <button type="submit" class="btn btn-primary">Update</button>
-            </div>
-        </div>
-    </form>
+        </div>    
+    </div>
+    
 </main>
 <footer class="text-center text-white bg-dark">
     <div class="container pt-3">
