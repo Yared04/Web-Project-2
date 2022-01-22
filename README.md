@@ -25,8 +25,9 @@ For this project we will have 3 type of users;
 - funding, where a user can provide funds
     - The funding will be done via bank transfer, 
 2. 
-  - chat, direct conversation between user giving the funding and the client that requires it
-  - comment on donation pages
+  - chat or  comment between user giving the funding and the client that requires it
+  - ads
+  - search
  
 
 
