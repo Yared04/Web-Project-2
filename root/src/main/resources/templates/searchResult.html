@@ -85,15 +85,17 @@
             </div>
             
             <div class="my-3 p-3 bg-body rounded shadow-sm col-lg-10 col-12" th:each = "t : ${post}">
-                <div class="row g-0">
-                  <div class="col-md-4">
-                    <img th:src="|data:image;base64,${t.Base64Img}|" class="img-fluid rounded-start" alt="...">
+                <div class="row g-0" style="height: max-content;">
+                  <div class="col-md-4 mh-100" >
+                    <img th:src="|data:image;base64,${t.Base64Img}|" class="img-fluid rounded mh-100" alt="...">
                   </div>
                   <div class="col-md-8">
                     <div class="card-body">
-                      <h5 class="card-title" th:text=${t.title}>title</h5>
+                      <h4 class="card-title" th:text=${t.title}>title</h4>
                       <p class="card-text" th:text = ${t.description}></p>
-                      <p class="card-text">Posted on <small class="text-muted" th:text=${t.date}> </small></p>
+                      <small></small>
+                      <h3 class="card-text" ><small th:text ="'ETB '+${t.donations}+' '"></small></h3>
+                      <p class="card-text">Posted on <small class="text-muted" th:text=${t.date.toLocalDate()}> </small></p>
                       <a th:href="@{'/fundraiser/'+${t.id}}" class="btn btn-warning flex-grow-1">Donate</a>
                     </div>
                   </div>
