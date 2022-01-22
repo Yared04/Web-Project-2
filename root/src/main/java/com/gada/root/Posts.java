@@ -55,6 +55,14 @@ public class Posts {
     @Min(value = 999, message = "*Account Number is invalid!")
     private Long accountNumber;
     private LocalDateTime date;
+
+    @NotNull
+    @NotBlank(message = "*Short description is required!")
+    private String thyme;
+    @NotNull(message = "*Goal is required!")
+    private Long goal;
+    @NotBlank(message = "*Deadline date is required!")
+    private String deadline;
     
 
 
