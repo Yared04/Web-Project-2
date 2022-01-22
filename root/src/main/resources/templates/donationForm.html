@@ -15,8 +15,8 @@
         <div class="my-3 p-3 bg-body rounded row">
           <div class="col-sm-6 p-3">
             <div class="donation-information d-flex text-muted bg-body p-3 align-items-center rounded">
-              <img class="img-thumbnail m-2" th:src="@{http://www.downloadclipart.net/large/poor-png-hd.png}" />
-              <div>
+              <img class="img-thumbnail" th:src="@{http://www.downloadclipart.net/large/poor-png-hd.png}" />
+              <div class="m-2">
                 <h5 class="me-2 mb-0 lh-sm">
                   <strong class="d-block text-gray-dark">You are Donating For</strong>
                 </h5>
@@ -70,8 +70,8 @@
               
               <div class="col-12">
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="cutcheck">
-                  <label class="form-check-label" for="cutcheck">
+                  <input class="form-check-input" type="checkbox" onchange="document.getElementById('donatorName').setAttribute('value', 'Anonymous').disabled = this.checked;" id="Anonymous">
+                  <label class="form-check-label" for="Anonymous">
                     Make my donation <strong>Anonymous</strong> 
                   </label>
                 </div>
