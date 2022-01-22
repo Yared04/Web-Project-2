@@ -11,4 +11,11 @@ public interface PostsRepositary extends CrudRepository<Posts, Long>  {
      
      Posts findPostById(Long id);
      List<Posts> findPostByTitle(String title);
+
+     @Query("SELECT p FROM Posts p WHERE p.title LIKE %:key%"
+            + " OR p.description LIKE %:key%")
+     public List<Posts> SearchBykeyword(@Param("key") String key);
+
+     public List<Posts> findAll();
+
 }
