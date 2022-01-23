@@ -49,6 +49,6 @@ public class DonationController {
             post.setGoal(50000000L);
             
             this.repo.save(donation);
-        return "=thankYou";
+        return "thankYou";
     }
 }
