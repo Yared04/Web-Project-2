@@ -23,18 +23,18 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class Donation{
+public class Donation {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
-    @Min(value = 5, message="minimum allowed donation is 5 ETB")
+
+    @Min(value = 5, message = "minimum allowed donation is 5 ETB")
     @NotNull
     private Double amount;
 
     private String donatorName;
     @NotBlank(message = "You haven't entered account")
-    @CreditCardNumber(message = "Enter valid Credit Card Number")
+    // @CreditCardNumber(message = "Enter valid Credit Card Number")
     private String donatorAccount;
     private LocalDateTime date;
 

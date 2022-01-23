@@ -47,6 +47,6 @@ public class DonationController {
             donation.setPost(post);
             
             this.repo.save(donation);
-        return "=thankYou";
+        return "thankYou";
     }
 }
