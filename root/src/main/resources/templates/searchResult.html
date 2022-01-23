@@ -2,79 +2,73 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="ISO-8859-1">
-    <title></title>
-    <link th:href="@{\css\bootstrap.min.css}" rel="stylesheet" />
+  <link th:href="@{\css\bootstrap.min.css}" rel="stylesheet" />
+  <!-- Google font -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+  <!-- Font Awesome Icon -->
+  <link rel="stylesheet" href="css/font-awesome.min.css">
+
+  <!-- Custom stlylesheet -->
+  <link type="text/css" rel="stylesheet" href="css/style.css" />
+  <title th:text=${q}></title>
 
 </head>
 
 <body>
-    <header class="p-2 bg-dark text-white">
-        <div class="container">
-          <div class="d-flex flex-wrap justify-content-lg-start">
-            <a class="navbar-brand text-white mr-auto mr-lg-0 fs-1" href="#">GEDA</a>
-  
-            <ul
-              class="nav col-12 col-lg-auto align-items-end me-lg-auto mb-2 justify-content-center mb-md-0"
-            >
-            <li><a href="/" class="nav-link px-2 text-white">Home</a></li>
-              <li>
-                <a href="#" class="nav-link px-2 text-white"
-                  >Campaign Dashboard</a
-                >
-              </li>
-              <li>  <a class="nav-link px-2 text-white" href="#">Notifications</a></li>
-            </ul>
-            <div class="text-end">
-                <span sec:authorize="isAuthenticated()">
-                <form th:action="@{/logout}" method="post">
-                    <input
-                      type="submit"
-                      class="btn btn-sm btn-light"
-                      value="Log Out"
-                    />
-                  </form>
-                  </span>
-                  <span sec:authorize="!isAuthenticated()">
-                    <form th:action="@{/login}" method="get">
-                      <input
-                        type="submit"
-                        class="btn btn-sm btn-primary"
-                        value="Log In"
-                      />
-                   
-                   
-                      <input  th:action="@{/register}" 
-                        type="submit"
-                        class="btn btn-sm btn-primary"
-                        value="Sign Up"
-                      />
+  <header class="p-2 bg-dark text-white sticky-top justify-content-center">
+    <div class="container">
+        <div class="d-flex flex-wrap justify-content-lg-start">
+            <a class="navbar-brand text-white mr-auto mr-lg-0 fs-1" href="#">GADA</a>
+
+            <ul class="nav col-12 col-lg-auto align-items-end me-lg-auto mb-2 justify-content-center mb-md-0">
+                <li><a href="/" class="nav-link px-2 text-secondary">Home</a></li>
+                <li>
+                    <a href="#" class="nav-link px-2 text-white">Campaign </a></li>
+                <li> <a class="nav-link px-2 text-white" href="#">Notifications</a></li>
+                <li class=nav-link>
+                    <form class="form-inline my-2 my-lg-0 d-flex flex-grow-1" th:action="@{/Search}" method="get">
+                        <input class="form-control  rounded-0 flex-grow-1 border-0" id="q" type="text" name="q" th:value=${q} placeholder="Search Donation Campaigns" aria-label="Search">
+                        <button class="btn btn-outline-secondary rounded-0 " type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-3"><circle cx="10.5" cy="10.5" r="7.5"></circle><line x1="21" y1="21" x2="15.8" y2="15.8"></line></svg>
+          </button>
                     </form>
-                  </span>
-                <span sec:authorize="hasAnyAuthority('CLIENT', 'ADMIN')">
-                  <span class="dropdown col">
-                    <button
-                      class="btn btn-sm btn-secondary dropdown-toggle"
-                      type="button"
-                      id="dropdownMenuButton1"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      Admin
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                      <li><a class="dropdown-item" href="/users">View users</a></li>
-                      <li>
-                        <a class="dropdown-item" href="/listpost">View posts</a>
-                      </li>
-                    </ul>
-                  </ul>
-                </span>
-              </span>
-            </div>
-          </div>
+                </li>
+               
+
+                <li class=nav-link>
+                    <span sec:authorize="!isAuthenticated()">
+            <form th:action="@{/login}" method="get">
+              <input type="submit"  class="btn btn-sm btn-primary"  value="Log In"/>
+              <input  th:action="@{/register}" type="submit" class="btn btn-sm btn-primary" value="Sign Up"/>
+            </form>
+          </span>
+                </li>
+                <li class=nav-link>
+                    <span sec:authorize="isAuthenticated()">
+                        <form th:action="@{/logout}" method="post">
+                            <input type="submit" class="btn btn-sm btn-light " value="Log Out" />
+                        </form>
+                    </li>
+                  <li sec:authorize="hasAnyAuthority('CLIENT', 'ADMIN')" class=nav-link>
+                        <a href="/post" class="text-decoration-none">
+                            <button type="button" class="btn btn-sm btn-success">Add Post </button></a>
+                        </span>
+                    <span sec:authorize="hasAuthority('ADMIN')">
+            <span class="dropdown col">
+              <button class="btn btn-sm btn-success dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                Admin
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item" href="/users">View users</a></li>
+                <li><a class="dropdown-item" href="/listpost">View posts</a></li>
+              </ul>
+            </span>
+                    </span>
+                </li>
+            </ul>
         </div>
-      </header>
+    </div>
+</header>
+
       <main class="min-vh-100">
     
     <div class="container">
@@ -84,7 +78,7 @@
                 <h3 class="muted-text text-center">Oops No result was found!</h3>
             </div>
             
-            <div class="my-3 p-3 bg-body rounded shadow-sm col-lg-10 col-12" th:each = "t : ${post}">
+            <div class="my-3 p-2 bg-body rounded shadow-sm col-lg-10 col-12" th:each = "t : ${post}">
                 <div class="row g-0" style="height: max-content;">
                   <div class="col-md-4 mh-100" >
                     <img th:src="|data:image;base64,${t.Base64Img}|" class="img-fluid rounded mh-100" alt="...">
@@ -92,11 +86,14 @@
                   <div class="col-md-8">
                     <div class="card-body">
                       <h4 class="card-title" th:text=${t.title}>title</h4>
-                      <p class="card-text" th:text = ${t.description}></p>
+                      <p class="card-text" th:text = ${t.theme}></p>
                       <small></small>
-                      <h3 class="card-text" ><small th:text ="'ETB '+${t.donations}+' '"></small></h3>
+                      <h3 class="card-text" >
+                      <hr style="width: 90%; height: 3px; color: rgb(17, 34, 34); border-radius: 1px;"/>  
+                      <small th:text ="'ETB '+${t.donations}+' Raised'"></small>
+                      <hr style="width: 90%; height: 3px; color: rgb(26, 43, 43); border-radius: 1px;"/>  </h3>
                       <p class="card-text">Posted on <small class="text-muted" th:text=${t.date.toLocalDate()}> </small></p>
-                      <a th:href="@{'/fundraiser/'+${t.id}}" class="btn btn-warning flex-grow-1">Donate</a>
+                      <a th:href="@{'/fundraiser/'+${t.id}}" class="btn btn-warning w-50 mb-0 flex-grow-1">Donate</a>
                     </div>
                   </div>
             </div>
@@ -147,6 +144,7 @@
   ></script>
 
     <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    
 </body>
 
 </html>
