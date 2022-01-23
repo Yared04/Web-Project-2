@@ -34,8 +34,8 @@ public class HomeController {
     @GetMapping("/")
 
     public String homePage(Model model) {
-        List<Posts> posts = new ArrayList<>();
-        this.postRepo.findAll().forEach(i -> posts.add(i));
+        List<Posts> posts = this.postRepo.findAll() ;
+        // this.postRepo.findAll().forEach(i -> posts.add(i));
 
         model.addAttribute("titles", posts);
 
