@@ -34,7 +34,7 @@ public class Donation {
 
     private String donatorName;
     @NotBlank(message = "You haven't entered account")
-    @CreditCardNumber(message = "Enter valid Credit Card Number")
+    // @CreditCardNumber(message = "Enter valid Credit Card Number")
     private String donatorAccount;
     private LocalDateTime date;
 
