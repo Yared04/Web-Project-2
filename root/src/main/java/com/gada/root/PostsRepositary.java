@@ -9,8 +9,8 @@ import org.springframework.data.repository.query.Param;
 
 public interface PostsRepositary extends CrudRepository<Posts, Long>  {
      
-     Posts findPostById(Long id);
-     List<Posts> findPostByTitle(String title);
+     public Posts findPostById(Long postId);
+     public List<Posts> findPostByTitle(String title);
 
      @Query("SELECT p FROM Posts p WHERE p.title LIKE %:key%"
             + " OR p.description LIKE %:key%")
