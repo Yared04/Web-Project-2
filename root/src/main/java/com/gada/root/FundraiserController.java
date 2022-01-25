@@ -47,7 +47,7 @@ public class FundraiserController {
         Posts posts = this.repo.findPostById(postId);
         model.addAttribute("post", posts);
         List<Donation> donations = this.dRepo.findDonationByPostId(posts);
-        List<Donation> recentDonations = donations.subList(donations.size()-5, donations.size());
+        List<Donation> recentDonations = donations.size() < 5 ? donations:donations.subList(donations.size()-5, donations.size());
         Collections.reverse(recentDonations);
         
         Integer donationsAmount = donations.size();

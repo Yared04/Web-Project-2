@@ -2,6 +2,7 @@ package com.gada.root;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -38,7 +39,7 @@ public class Donation {
     private String donatorAccount;
     private LocalDateTime date;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Posts post;
 
     

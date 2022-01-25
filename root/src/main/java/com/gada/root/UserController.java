@@ -84,6 +84,12 @@ public String listPosts(Model model) {
 		model.addAttribute("listPosts", listPosts);	
 	return "posts";
 }
+// @GetMapping("/listpost/{id}")
+// public String listPostsById(@PathVariable("id") Long id, Model model) {
+// 	List<Posts> listPostsId = service2.listById(id);
+// 		model.addAttribute("listPosts", listPostsId);	
+// 	return "posts";
+// }
 @GetMapping("/listpost/edit/{id}")
 public String editPost(@PathVariable("id") Long id, Model model) {
     Posts post = service2.get(id);
