@@ -8,3 +8,11 @@ window.onscroll = function() {
   }
   prevScrollpos = currentScrollPos;
 }
+
+function success() {
+	 if(document.getElementById("comment").value==="") { 
+            document.getElementById('commentbtn').disabled = true; 
+        } else { 
+            document.getElementById('commentbtn').disabled = false;
+        }
+    }

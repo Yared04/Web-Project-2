@@ -67,12 +67,11 @@ public class Posts {
     private Long goal;
    
     private LocalDateTime deadline;
-    private Double donations;
-
-    public void addDonation(Double donation){
-        this.donations += donation;
-    }
     
+    @OneToMany(mappedBy = "post")
+    private List<Comment> comments;
 
+    @OneToMany(mappedBy = "post")
+    private List<Donation> donations;
 
 }

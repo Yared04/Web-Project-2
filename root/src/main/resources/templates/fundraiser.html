@@ -1,4 +1,4 @@
-Naty, [25/01/2022 10:20 AM]
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
@@ -105,7 +105,7 @@ Naty, [25/01/2022 10:20 AM]
           </div>
         </div>
 
-Naty, [25/01/2022 10:20 AM]
+
 <div class="donate-card col-md-4">
           <div class="my-3 p-3 bg-body rounded shadow-sm">
             <h5 class="card-title" th:text=${totalAmount}>ETB Raised</h5>
@@ -143,6 +143,7 @@ Naty, [25/01/2022 10:20 AM]
 
 
         </div>
+        
 
 
 
@@ -168,9 +169,9 @@ Naty, [25/01/2022 10:20 AM]
           </div>
 
 
-          <form method="post" th:action="@{'/fundraiser/'+ ${post.id}}" class="container w-50 m-5" th:object="${com}">
-            <textarea name="comment" id="comment" class="form-control" rows="4" cols="15"></textarea>
-            <button type="submit" value="submit" class="btn btn-primary my-3">Comment</button>
+          <form  th:action="@{'/fundraiser/' + ${post.id} + '/comment'}" method="post" class="container w-50 m-5" th:object="${comment}">
+            <textarea  th:field=*{comment} onkeyup="success()" class="form-control" rows="4" cols="15"></textarea>
+            <button type="submit" id="commentbtn" class="btn btn-primary my-3" disabled>Comment</button>
           </form>
 
 
@@ -199,8 +200,9 @@ Naty, [25/01/2022 10:20 AM]
   </footer>
   <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" data-auto-a11y="true"></script>
 
-Naty, [25/01/2022 10:20 AM]
 <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+
+<script th:src="@{/js/main.js}"></script>
 </body>
 
 </html>

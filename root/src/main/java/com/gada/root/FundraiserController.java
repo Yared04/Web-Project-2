@@ -26,6 +26,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
@@ -47,18 +49,15 @@ public class FundraiserController {
         Posts posts = this.repo.findPostById(postId);
         model.addAttribute("post", posts);
         List<Donation> donations = this.dRepo.findDonationByPostId(posts);
-        List<Donation> recentDonations = donations.subList(donations.size()-5, donations.size());
+        List<Donation> recentDonations = donations.size() < 5 ? donations : donations.subList(donations.size()-5, donations.size());
         Collections.reverse(recentDonations);
         
         Integer donationsAmount = donations.size();
     
         model.addAttribute("donations" , donationsAmount );
         model.addAttribute("Donations", recentDonations);
-        model.addAttribute("com",new Comment());
-        List<Comment> comments = new ArrayList<>();
-        cRepo.findByPost(posts).forEach(i -> comments.add(i));
-
-        model.addAttribute("comments", comments);
+        model.addAttribute("comment",new Comment());
+        model.addAttribute("comments", this.cRepo.findByPostId(postId));
         
        
         return "fundraiser";}
@@ -66,16 +65,10 @@ public class FundraiserController {
    
    
         @PostMapping("/fundraiser/{postId}/comment")
-        public String postController(@PathParam("postId") Long postId, @ModelAttribute("com") Comment com, Errors errors){
+        public String postController( @ModelAttribute("comment") Comment comment, @PathVariable Long postId,Model model){
             
-            if (errors.hasErrors()){
-                log.info("has errrrror");
-                return "fundraiser";
-            }
-            Posts post = repo.findPostById(postId); 
-            com.setPost(post);
-            
-            this.cRepo.save(com);
+            comment.setPost(this.repo.findPostById(postId));
+            this.cRepo.save(comment);
             return "redirect:/fundraiser/{postId}";
         }
     
