@@ -132,6 +132,6 @@ public String updatePosts(@Valid @ModelAttribute("post") Posts post,
 	
 	service2.save(post);
 
-	return "redirect:/listpost";
+	return "redirect:/";
 }
 }

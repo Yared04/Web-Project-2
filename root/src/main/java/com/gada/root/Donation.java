@@ -23,12 +23,12 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class Donation{
+public class Donation {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
-    @Min(value = 5, message="minimum allowed donation is 5 ETB")
+
+    @Min(value = 5, message = "minimum allowed donation is 5 ETB")
     @NotNull
     private Double amount;
 

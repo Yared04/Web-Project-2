@@ -46,9 +46,8 @@ public class DonationController {
             donation.setDate(ldt);
             donation.setPost(post);
             post.addDonation(donation.getAmount());
-            post.setGoal(50000000L);
             
             this.repo.save(donation);
-        return "=thankYou";
+        return "thankYou";
     }
 }

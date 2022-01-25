@@ -19,6 +19,7 @@ import javax.validation.constraints.NotBlank;
 // import javax.validation.constraints.NotEmpty;
 // import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 // import org.springframework.format.annotation.NumberFormat;
 // import org.springframework.web.multipart.MultipartFile;
@@ -56,12 +57,16 @@ public class Posts {
     private Long accountNumber;
     private LocalDateTime date;
 
+    @NotBlank
+    @NotNull(message = "*Theme or or short brief explanation of Campaign is required")
+    @Size(min=40)
+    private String theme;
     
-    private String thyme;
- 
+    
+    @NotNull(message = "*Goal is required")
     private Long goal;
    
-    private String deadline;
+    private LocalDateTime deadline;
     private Double donations;
 
     public void addDonation(Double donation){

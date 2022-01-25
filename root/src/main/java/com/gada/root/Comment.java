@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 // import javax.persistence.ManyToOne;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -22,5 +23,7 @@ public class Comment {
    @GenericGenerator(name = "system-uuid", strategy = "uuid")
    private String id;
    private String comment;
-   private Long postId;
+   @ManyToOne
+   @JoinColumn(name = "post_id")
+   private Posts post;
 }
