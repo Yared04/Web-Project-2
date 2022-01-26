@@ -42,11 +42,12 @@ public class Posts {
     @Column(columnDefinition = "MEDIUMBLOB")
 
     private byte[] ProductImg;
-    @Column(columnDefinition = "LONGVARCHAR")
+    @Column(columnDefinition = "MEDIUMTEXT")
     private String Base64Img;
 
     @NotNull
     @NotBlank(message = "*Description is required!")
+    @Column(columnDefinition = "MEDIUMTEXT")
     private String description;
     @NotNull
     @NotBlank(message = "*Title is required!")
@@ -59,20 +60,16 @@ public class Posts {
 
     @NotBlank
     @NotNull(message = "*Theme or or short brief explanation of Campaign is required")
-    @Size(min=40)
+    @Size(min = 40)
     private String theme;
-    
-    
+
     @NotNull(message = "*Goal is required")
     private Long goal;
-   
-    private LocalDateTime deadline;
-    private Double donations;
 
-    public void addDonation(Double donation){
-        this.donations += donation;
-    }
-    
+    @OneToMany(mappedBy = "post")
+    private List<Comment> comments;
 
+    @OneToMany(mappedBy = "post")
+    private List<Donation> donations;
 
 }
