@@ -2,113 +2,99 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="ISO-8859-1">
-    <title>Gada-Login</title>
-    <link th:href="@{\css\bootstrap.min.css}" rel="stylesheet" />
+  <meta charset="ISO-8859-1">
+  <title>Gada-Login</title>
+  <link type="text/css" rel="stylesheet" href="css/style2.css" />
+  <link th:href="@{\css\bootstrap.min.css}" rel="stylesheet" />
 
 </head>
 
 <body>
-    <header class="p-2 bg-dark text-white">
-        <div class="container">
-         
-            <div class="d-flex flex-wrap justify-content-lg-start">
-                <a class="navbar-brand text-white mr-auto mr-lg-0 fs-1" href="#">GEDA</a>
-      
-            </a>
-  
-            <ul
-              class="nav col-12 col-lg-auto align-items-end me-lg-auto mb-2 justify-content-center mb-md-0"
-            >
-            <li><a href="/" class="nav-link px-2 text-white">Home</a></li>
-              <li><a href="#" class="nav-link px-2 text-white">Campaign Dashboard</a></li>
-              <li>  <a class="nav-link px-2 text-white" href="#">Notifications</a></li>
-            </ul>
-  
-            <div class="text-end">
-              <span sec:authorize="!isAuthenticated()">
-                <form th:action="@{/register}" method="get">
-                  <input
-                    type="submit"
-                    class="btn btn-sm btn-warning"
-                    value="Sign Up"
-                  />
-                </form>
-              </span>
+  <header class="p-2 bg-dark text-white">
+    <div class="container">
+
+      <div class="d-flex flex-wrap justify-content-lg-start">
+        <a class="navbar-brand text-white mr-auto mr-lg-0 fs-1" href="#">GEDA</a>
+
+        </a>
+
+        <ul class="nav col-12 col-lg-auto align-items-end me-lg-auto mb-2 justify-content-center mb-md-0">
+          <li><a href="/" class="nav-link px-2 text-white">Home</a></li>
+          <li><a href="#" class="nav-link px-2 text-white">Campaign Dashboard</a></li>
+          <li> <a class="nav-link px-2 text-white" href="#">Notifications</a></li>
+        </ul>
+
+        <div class="text-end">
+          <span sec:authorize="!isAuthenticated()">
+            <form th:action="@{/register}" method="get">
+              <input type="submit" class="btn btn-sm btn-warning" value="Sign Up" />
+            </form>
+          </span>
+        </div>
+      </div>
+    </div>
+  </header>
+  <section class="ftco-section">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-12 col-lg-10">
+          <div class="wrap d-md-flex">
+            <div class="img" style="background-image: url(images/bg-1.jpg);">
+            </div>
+            <div class="login-wrap p-4 p-md-5">
+              <div class="d-flex">
+                <div class="w-100">
+                  <h3 class="mb-4">Sign In</h3>
+                </div>
+              </div>
+
+              <form th:action="@{/login}" th:object="${user}" method="post" class="signin-form">
+                <div class="form-group mb-3">
+                  <label class="label" for="name">Username</label>
+                  <input type="text" th:field="*{username}" class="form-control" required />
+                </div>
+                <div class="form-group mb-3">
+                  <label class="label" for="password">Password</label>
+                  <input type="password" th:field="*{password}" class="form-control" required minlength="6"
+                    maxlength="10" />
+                </div>
+                <div th:if="${param.error}" class="alert alert-error" style="color:red;">
+                  Invalid Username or Password.
+                </div>
+                <div class="form-group">
+                  <button type="submit" class="form-control btn btn-primary rounded submit px-3">Sign In</button>
+                </div>
+              </form>
+              <p class="text-center">Not a member? <a href="/register"
+                  style="color: orange; text-decoration: none;">Sign Up here</a></p>
             </div>
           </div>
         </div>
-      </header>
-      <main class="min-vh-100">
-    <div class="container">
-        <h1>Log In</h1>
-        <br>
-        <form th:action="@{/login}" th:object="${user}" method="post">
-            <div class="row mb-3">
-                <label class="col-sm-2 col-form-label">Username</label>
-                <div class="col-sm-10">
-                    <input type="text" th:field="*{username}" class="form-control" required />
-                </div>
-            </div>
-            <div class="row mb-3">
-                <label class="col-sm-2 col-form-label">Password</label>
-                <div class="col-sm-10">
-                    <input type="password" th:field="*{password}" class="form-control" required minlength="6" maxlength="10" />
-
-                </div>
-            </div>
-            <div th:if="${param.error}" class="alert alert-error" style="color:red;">
-                Invalid Username or Password.
-            </div>
-            <div>
-                <button type="submit" class="btn btn-primary">Log In</button>
-            </div>
-        </form>
-    </div>
-</main>
-<footer class="text-center text-white bg-dark">
+      </div>
+  </section>
+  <footer class="text-center text-white bg-dark">
     <div class="container pt-3">
       <section class="mb-3">
-        <a
-          class="btn btn-link btn-floating text-white btn-lg m-1"
-          href="#!"
-          role="button"
-          data-mdb-ripple-color="dark"
-          ><i class="fab fa-facebook-f"></i
-        ></a>
-        <a
-          class="btn btn-link btn-floating text-white btn-lg m-1"
-          href="#!"
-          role="button"
-          data-mdb-ripple-color="dark"
-          ><i class="fab fa-twitter"></i
-        ></a>
-        <a
-          class="btn btn-link btn-floating text-white btn-lg m-1"
-          href="#!"
-          role="button"
-          data-mdb-ripple-color="dark"
-          ><i class="fab fa-instagram"></i
-        ></a>
-        <a
-          class="btn btn-link btn-floating text-white btn-lg m-1"
-          href="#!"
-          role="button"
-          data-mdb-ripple-color="dark"
-          ><i class="fab fa-github"></i
-        ></a>
+        <a class="btn btn-link btn-floating text-white btn-lg m-1" href="#!" role="button"
+          data-mdb-ripple-color="dark"><i class="fab fa-facebook-f"></i></a>
+        <a class="btn btn-link btn-floating text-white btn-lg m-1" href="#!" role="button"
+          data-mdb-ripple-color="dark"><i class="fab fa-twitter"></i></a>
+        <a class="btn btn-link btn-floating text-white btn-lg m-1" href="#!" role="button"
+          data-mdb-ripple-color="dark"><i class="fab fa-instagram"></i></a>
+        <a class="btn btn-link btn-floating text-white btn-lg m-1" href="#!" role="button"
+          data-mdb-ripple-color="dark"><i class="fab fa-github"></i></a>
       </section>
     </div>
     <div class="text-center p-2" style="background-color: rgba(0, 0, 0, 0.2)">
       &copy; 2020 <b>GEDA</b> All rights reserved.
     </div>
   </footer>
-  <script
-    src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"
-    data-auto-a11y="true"
-  ></script>
+  <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" data-auto-a11y="true"></script>
+  <script src="js/jquery.min.js"></script>
+  <script src="js/popper.js"></script>
+  <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+  <script src="js/main.js"></script>
 
-    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 </body>
 
 </html>

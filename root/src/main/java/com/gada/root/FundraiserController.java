@@ -99,14 +99,14 @@ public class FundraiserController {
         comment.setPost(this.repo.findPostById(postId));
         this.cRepo.save(comment);
 
-        return "redirect:/fundraiser/{postId}";
+        return "redirect:/fundraiser/{postId}#comments";
     }
 
-    @PostMapping("delete/{commentId}")
-    public String deleteComment(@PathVariable("commentId") String commentId,@PathVariable Long postId) {
+    @PostMapping("/delete/{postId}/{commentId}")
+    public String deleteComment(@PathVariable Long postId, @PathVariable("commentId") String commentId) {
         System.out.println(commentId);
         this.cRepo.deleteById(commentId);
-        return "redirect:/fundraiser/{postId}";
+        return "redirect:/fundraiser/{postId}#comments";
     }
 
     // @PostMapping("fundraiser/{postId}/edit")

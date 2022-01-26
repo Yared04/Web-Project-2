@@ -174,21 +174,17 @@
              
             th:text="${c.comment}">
               <strong class="d-block text-gray-dark">Name</strong>
-              may god be with you in all your endeavors
+              may god be with you in all your endeavors.
+              <form th:action="@{'/delete/'+ ${post.id}+'/'+ ${c.id}}" th:object="${comment}" style="display: inline;" method="post">
+              
+                <span style=" position: relative; top: -2.5rem;" th:if="${c.getUser().getUsername()}==${curUser}"><button class="btn" type="submit" value="submit"><i
+                      class="fas fa-archive" style="cursor: pointer;"></i></button></span>
+              </form>
             </p>
             
-              <!-- <span th:if="${c.getUser().getUsername()}==${curUser}"><i class="fas fa-edit"
-                            style="cursor: pointer;"></i></span> -->
-            <form th:aciton="@{'/delete/'+${c.id}}" th:object="${comment}" method="post">
-                          <textarea th:field=*{comment} onkeyup="success()" class="form-control" rows="4" cols="15" hidden></textarea>
-
-              <span th:if="${c.getUser().getUsername()}==${curUser}"><button class="btn" type="submit" value="submit"><i
-                    class="fas fa-archive" style="cursor: pointer;"></i></button></span>
-             </form>
+             
+           
             
-            <!-- <form th:aciton="@{delete}" method="post">
-            <span th:if = "${c.getUser().getUsername()}==${curUser}"><button class="btn" type="submit" value="submit"><i class="fas fa-archive" style="cursor: pointer;"></i></button></span>
-            </form> -->
             </dd>
             </dl>
             
