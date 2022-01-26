@@ -8,10 +8,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.repository.CrudRepository;
 
 
-public interface CommentRepositary extends CrudRepository<Comment, String> {
+public interface CommentRepositary extends CrudRepository<Comment, Long> {
  
     List<Comment> findByPostId(Long postId);
     List<Comment> findByUser(User user);
-    
-    void deleteById(String id);
+
+    void deleteById(Long id);
+
 }

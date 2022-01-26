@@ -73,14 +73,12 @@ public class Posts {
 
     @NotNull(message = "*Goal is required")
     private Long goal;
-      
-    private Double donations;
+
+    private float totalAmount;
+     
+    
     @ManyToOne
     private User user;
-
-    public void addDonation(Double donation){
-        this.donations += donation;
-    }
 
     @OneToMany(mappedBy = "post")
     private List<Comment> comments;

@@ -92,7 +92,7 @@
                       <small></small>
                       <h3 class="card-text" >
                       <hr style="width: 90%; height: 3px; color: rgb(17, 34, 34); border-radius: 1px;"/>  
-                      <small th:text ="'ETB '+${t.donations}+' Raised'"></small>
+                      <small th:text ="|ETB ${t.totalAmount} Raised|"></small>
                       <hr style="width: 90%; height: 3px; color: rgb(26, 43, 43); border-radius: 1px;"/>  </h3>
                       <p class="card-text">Posted on <small class="text-muted" th:text=${t.date.toLocalDate()}> </small></p>
                       <a th:href="@{'/fundraiser/'+${t.id}}" class="btn btn-warning w-50 mb-0 flex-grow-1">Donate</a>

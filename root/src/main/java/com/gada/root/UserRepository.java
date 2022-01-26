@@ -16,6 +16,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     public Optional<User> findById(Integer l);  
     
     public void deleteByUsername(String username);
-
+    
   
 }

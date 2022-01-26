@@ -48,18 +48,18 @@ public class FundraiserController {
     public String showFundraiser(@PathVariable Long postId, Model model) {
         Posts posts = this.repo.findPostById(postId);
         model.addAttribute("post", posts);
+        model.addAttribute("post", posts);
         List<Donation> donations = this.dRepo.findDonationByPostId(posts);
 
-        List<Donation> recentDonations = donations.size() < 5 ? donations:donations.subList(donations.size()-5, donations.size());
-
+        List<Donation> recentDonations = donations.size() < 5 ? donations : donations.subList(donations.size()-5, donations.size());
         Collections.reverse(recentDonations);
-        Integer donationsAmount = donations.size();
-
+        
+        model.addAttribute("donationAmount", donations.size());
+        model.addAttribute("Donations", recentDonations);
         Comment c = new Comment();
         List<Comment> byPost = this.cRepo.findByPostId(postId);
-        log.info("here");
-        model.addAttribute("donations", donationsAmount);
-        model.addAttribute("Donations", recentDonations);
+        
+
         model.addAttribute("comment", c);
         // model.addAttribute("uuu",c.getUser().getUsername());
         model.addAttribute("comments", byPost);
@@ -71,6 +71,7 @@ public class FundraiserController {
             u.add(com.getUser().getUsername());
 
         }
+
         System.out.println(u);
         model.addAttribute("username", u);
         String username;
@@ -80,13 +81,15 @@ public class FundraiserController {
         } else {
             username = principal.toString();
         }
+
         model.addAttribute("curUser", username);
 
         return "fundraiser";
     }
 
-    @PostMapping("/fundraiser/{postId}/comment")
-    public String postController(@ModelAttribute("comment") Comment comment, @PathVariable Long postId, Model model) {
+    @PostMapping("/fundraiser/{postId}/c")
+    public String postController(@ModelAttribute("c") Comment c, @PathVariable Long postId, Model model) {
+
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User myUser;
         if (principal instanceof UserDetails) {
@@ -96,18 +99,20 @@ public class FundraiserController {
             String username = principal.toString();
             myUser = this.uRepo.findByUsername(username);
         }
-        comment.setUser(myUser);
-        comment.setPost(this.repo.findPostById(postId));
-        this.cRepo.save(comment);
 
-        return "redirect:/fundraiser/{postId}#comments";
+        c.setUser(myUser);
+        c.setPost(this.repo.findPostById(postId));
+        this.cRepo.save(c);
+
+        return "redirect:/fundraiser/{postId}";
     }
 
-    @PostMapping("/delete/{postId}/{commentId}")
-    public String deleteComment(@PathVariable Long postId, @PathVariable("commentId") String commentId) {
-        System.out.println(commentId);
-        this.cRepo.deleteById(commentId);
-        return "redirect:/fundraiser/{postId}#comments";
+    @PostMapping("/fundraiser/{postId}/delete/{cId}")
+    public String deleteComment(@PathVariable("cId") Long cId) {
+        
+        this.cRepo.deleteById(cId);
+        return "redirect:/fundraiser/{postId}";
+
     }
 
     // @PostMapping("fundraiser/{postId}/edit")

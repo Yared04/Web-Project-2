@@ -44,13 +44,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-
                
                 .antMatchers("/post").hasAnyAuthority("ADMIN", "CLIENT")
                 .antMatchers("/users/**").hasAuthority("ADMIN")
                 .antMatchers("/listpost").hasAuthority("ADMIN")
                 .antMatchers("/listpost/**").hasAnyAuthority("ADMIN","CLIENT")
                 .antMatchers("/client/posts").hasAnyAuthority("ADMIN","CLIENT")
+
                 .antMatchers("/delete/**").permitAll()
                 .anyRequest().permitAll()
                 .and()
@@ -65,7 +65,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll();
 
 
-       
     }
 
 }

@@ -12,7 +12,7 @@
     <link type="text/css" rel="stylesheet" href="css/style.css" />
     <title>Gada Ethiopia</title>
 
-</head>
+  </head>
 
 
 <body>
@@ -88,6 +88,7 @@
 
                 </div>
         <div>
+
             <label class="form-label" for="theme"> Theme: </label>
             <textarea th:field="*{theme}" rows="4" type="text"
                 th:class="|form-control ${#fields.hasErrors('theme')? 'is-invalid': 'is-valid'}|"></textarea>
@@ -113,6 +114,8 @@
                 <span class="invalid-feedback" th:if="${#fields.hasErrors('deadline')}" th:errors="*{deadline}">deadline
                     Error</span>
             </div> -->
+
+
 
         <div>
                 <label class="form-label" for="accountNumber"> Bank Account Number: </label>

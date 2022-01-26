@@ -3,7 +3,9 @@ package com.gada.root;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+
 import java.util.Optional;
+
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -53,7 +55,6 @@ public class User {
     )
     private Set<Role> roles = new  HashSet<>();
 
-
     public Set<Role> getRoles(){
         return roles;
     }
@@ -65,7 +66,6 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Comment> comments;
     
-
     public void addRole(Role role){
         this.roles.add(role);
     }

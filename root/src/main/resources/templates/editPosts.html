@@ -88,6 +88,7 @@
             <span class="invalid-feedback" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">title
                 Error</span>
 
+
             </div>
             <div>
                 <label class="form-label" for="theme"> Theme: </label>
@@ -101,6 +102,7 @@
                 <textarea th:field="*{description}" rows="8" type="text" th:class="|form-control ${#fields.hasErrors('description')? 'is-invalid': 'is-valid'}|"></textarea>
                 <span class="invalid-feedback" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">description
                 Error</span>
+
             </div>
             <div>
 

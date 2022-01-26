@@ -1,4 +1,5 @@
-q<!DOCTYPE html>
+<!DOCTYPE html>
+
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 
@@ -14,7 +15,6 @@ q<!DOCTYPE html>
   <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
   <link th:href="@{/css/fundraiser.css}" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
 </head>
 
 <body>
@@ -129,42 +129,44 @@ q<!DOCTYPE html>
 
 
 
-<div class="donate-card col-md-4">
+        <div class="donate-card col-md-4">
+
           <div class="my-3 p-3 bg-body rounded shadow-sm">
-            <h5 class="card-title" th:text=${totalAmount}>ETB Raised</h5>
-            <h6 class="card-subtitle mb-2 text-muted">of 1000 Goal</h6>
-            <h5 class="m-0" th:text=${donations}>837</h5>
+            <h5 class="card-title" th:text = "|${post.totalAmount} ETB Raised|">ETB Raised</h5>
+            <h6 class="card-subtitle mb-2 text-muted" th:text="|of ${post.Goal} Goal|">Goal</h6>
+            <h5 class="m-0" th:text=${donationAmount}></h5>
             <p class="text-muted">Donations</p>
 
+            <div class="progress" style="height: 10px;">
+              <div class="progress-bar" role="progressbar" th:style="|width: ${((post.totalAmount*100)/post.Goal)}%;|" aria-valuenow="25" aria-valuemin="0"
+                aria-valuemax="100"></div>
 
-        <div class="donate-card col-md-4">
-            <div class="my-3 p-3 bg-body rounded shadow-sm">
-                <h5 class="card-title" th:text=${totalAmount}>ETB Raised</h5>
-                <h6 class="card-subtitle mb-2 text-muted">of 1000 Goal</h6>
-                <h5 class="m-0" th:text=${donations}>837</h5>
-                <p class="text-muted">Donations</p>
+            </div>
+            <h6 class="card-subtitle m-2 text-muted" th:if="${post.goal &gt; post.totalAmount}" th:text="|${(post.Goal-post.totalAmount)} ETB left to reach ${post.Goal} |">500 ETB left to reach Goal</h6>
 
-                <div class="progress" style="height: 10px;">
-                    <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+            <a th:href="@{'/fundraiser/'+${post.id}+'/donate'}" class="btn btn-warning w-100 mt-2 mb-2 " >Donate Now</a>
+            <button class="btn btn-info w-100 mb-2 ">Share This Campaign</button>
+            <h6 class="border-bottom pb-2 mb-0">Recent Donations</h6>
+            <div class="d-flex text-muted pt-3" th:each ="d : ${Donations}">
+              <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32"
+                xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32"
+                preserveAspectRatio="xMidYMid slice" focusable="false">
 
-                </div>
-                <h6 class="card-subtitle m-2 text-muted">500 ETB left to reach Goal</h6>
-
-                <a th:href="@{'/fundraiser/'+${post.id}+'/donate'}" class="btn btn-warning w-100 mt-2 mb-2 ">Donate Now</a>
-                <button class="btn btn-info w-100 mb-2 ">Share This Campaign</button>
-                <h6 class="border-bottom pb-2 mb-0">Recent Donations</h6>
-                <div class="d-flex text-muted pt-3">
-                    <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false">
                 <title>Placeholder</title>
                 <rect width="100%" height="100%" fill="#007bff" /><text x="50%" y="50%" fill="#007bff"
                   dy=".3em">32x32</text>
               </svg>
 
-                    <p class="pb-3 mb-0 small lh-sm border-bottom">
-                        <strong class="d-block text-gray-dark">Name</strong> 500 ETB
-                    </p>
-                </div>
+
+              <p class="pb-3 mb-0 small lh-sm border-bottom">
+                <strong class="d-block text-dark" th:text=${d.donatorName}>Name</strong>
+                <small th:text=${d.amount}></small>
+              </p>
             </div>
+          </div>
+        </div>
+
+
 
 
 
@@ -177,7 +179,6 @@ q<!DOCTYPE html>
 
         <!-- Comments -->
         <div class="my-3 p-3 bg-body rounded shadow-sm">
-
           <h3 class="border-bottom pb-2 mb-0" id="comments">Comments</h3>
 
 
@@ -193,10 +194,10 @@ q<!DOCTYPE html>
               <rect width="100%" height="100%" fill="#007bff" /><text x="40%" y="40%" fill="#007bff"
                 dy=".3em">32x32</text>
             </svg>
-            <!-- <u><span sec:authentication="name" class="text-gray-dark" style="cursor:pointer;">User</span></u> -->
-            <span class="text-gray-dark" style="cursor:pointer;" th:text = "${c.getUser().getUsername()}"></span>
+
+             <span class="text-gray-dark" style="cursor:pointer;" th:text = "${c.getUser().getUsername()}"></span>
             
-            <dd >
+
             <p class="pb-1 mb-0 small bg-light" style="margin-left: 3rem;  max-width: 60%; 
              border: 1px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; border-top-right-radius: 10px; padding: 1.2rem;" 
              
@@ -210,51 +211,54 @@ q<!DOCTYPE html>
               </form>
             </p>
             
-             
-           
-            
-            </dd>
-            </dl>
-            
+
+            <form th:action="@{'/fundraiser/' + ${post.id} + '/delete/'+${c.id}}"  th:object="${comment}" method="post">
+                          <textarea th:field=*{comment} onkeyup="success()" class="form-control" rows="4" cols="15" hidden></textarea>
+
+              <span th:if="${c.getUser().getUsername()}==${curUser}"><button class="btn" type="submit" value="submit"><i
+                    class="fas fa-archive" style="cursor: pointer;"></i></button></span>
+             </form>
+          
           </div>
 
           <div sec:authorize = "!isAuthenticated()"> <a href="/login">Login(Sign up) to comment and be part of the community!</a></div>
-          <form  th:action="@{'/fundraiser/' + ${post.id} + '/comment'}" method="post" class="container w-50 m-5" th:object="${comment}" sec:authorize = "isAuthenticated()">
-            <input type="hidden" th:field = "*{id}" >
-            <textarea  th:field=*{comment} onkeyup="success()" class="form-control" rows="4" cols="15"></textarea>
+          <form  th:action="@{'/fundraiser/' + ${post.id} + '/c'}" method="post" class="container w-50 m-5" th:object="${c}" sec:authorize = "isAuthenticated()">
+            
+            <textarea  name="comment"  id="comment" onkeyup="success()" class="form-control" rows="4" cols="15"></textarea>
+
             <button type="submit" id="commentbtn" class="btn btn-primary my-3" disabled>Comment</button>
           </form>
 
 
         </div>
 
-        </div>
 
+      </div>
 
-        </div>
-        </main>
-        <footer class="text-center text-white bg-dark">
-            <div class="container pt-3">
-                <section class="mb-3">
-                    <a class="btn btn-link btn-floating text-white btn-lg m-1" href="#!" role="button" data-mdb-ripple-color="dark"><i class="fab fa-facebook-f"></i></a>
-                    <a class="btn btn-link btn-floating text-white btn-lg m-1" href="#!" role="button" data-mdb-ripple-color="dark"><i class="fab fa-twitter"></i></a>
-                    <a class="btn btn-link btn-floating text-white btn-lg m-1" href="#!" role="button" data-mdb-ripple-color="dark"><i class="fab fa-instagram"></i></a>
-                    <a class="btn btn-link btn-floating text-white btn-lg m-1" href="#!" role="button" data-mdb-ripple-color="dark"><i class="fab fa-github"></i></a>
-                </section>
-            </div>
-            <div class="text-center p-2" style="background-color: rgba(0, 0, 0, 0.2)">
-                &copy; 2020 <b>GADA</b> All rights reserved.
-            </div>
-        </footer>
-        <script th:src="@{\js\bootstrap.bundle.min.js}"></script>
+    </div>
+  </main>
+  <footer class="text-center text-white bg-dark">
+    <div class="container pt-3">
+      <section class="mb-3">
+        <a class="btn btn-link btn-floating text-white btn-lg m-1" href="#!" role="button"
+          data-mdb-ripple-color="dark"><i class="fab fa-facebook-f"></i></a>
+        <a class="btn btn-link btn-floating text-white btn-lg m-1" href="#!" role="button"
+          data-mdb-ripple-color="dark"><i class="fab fa-twitter"></i></a>
+        <a class="btn btn-link btn-floating text-white btn-lg m-1" href="#!" role="button"
+          data-mdb-ripple-color="dark"><i class="fab fa-instagram"></i></a>
+        <a class="btn btn-link btn-floating text-white btn-lg m-1" href="#!" role="button"
+          data-mdb-ripple-color="dark"><i class="fab fa-github"></i></a>
+      </section>
+    </div>
+    <div class="text-center p-2" style="background-color: rgba(0, 0, 0, 0.2)">
+      &copy; 2020 <b>GADA</b> All rights reserved.
+    </div>
+  </footer>
+  <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" data-auto-a11y="true"></script>
 
-        <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" data-auto-a11y="true"></script>
-        <script src="js/jquery.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <!-- <script src="js/slick.min.js"></script> -->
-        <!-- <script src="js/nouislider.min.js"></script> -->
-        <script src="js/jquery.zoom.min.js"></script>
-        <script src="js/main.js"></script>
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+
+<script th:src="@{/js/main.js}"></script>
 
 </body>
 
