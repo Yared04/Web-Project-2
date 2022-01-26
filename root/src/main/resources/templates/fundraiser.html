@@ -211,13 +211,6 @@
               </form>
             </p>
             
-
-            <form th:action="@{'/fundraiser/' + ${post.id} + '/delete/'+${c.id}}"  th:object="${comment}" method="post">
-                          <textarea th:field=*{comment} onkeyup="success()" class="form-control" rows="4" cols="15" hidden></textarea>
-
-              <span th:if="${c.getUser().getUsername()}==${curUser}"><button class="btn" type="submit" value="submit"><i
-                    class="fas fa-archive" style="cursor: pointer;"></i></button></span>
-             </form>
           
           </div>
 
