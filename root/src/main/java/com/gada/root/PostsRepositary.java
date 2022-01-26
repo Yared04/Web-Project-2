@@ -1,6 +1,7 @@
 package com.gada.root;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -17,5 +18,6 @@ public interface PostsRepositary extends CrudRepository<Posts, Long>  {
      public List<Posts> SearchBykeyword(@Param("key") String key);
 
      public List<Posts> findAll();
+     public List<Posts> findByUser(User user);
 
 }

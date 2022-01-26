@@ -12,6 +12,7 @@ public interface CommentRepositary extends CrudRepository<Comment, Long> {
  
     List<Comment> findByPostId(Long postId);
     List<Comment> findByUser(User user);
-    
+
     void deleteById(Long id);
+
 }

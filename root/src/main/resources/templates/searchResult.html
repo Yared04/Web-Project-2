@@ -2,72 +2,74 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-  <link th:href="@{\css\bootstrap.min.css}" rel="stylesheet" />
-  <!-- Google font -->
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
-  <!-- Font Awesome Icon -->
-  <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link th:href="@{\css\bootstrap.min.css}" rel="stylesheet" />
+    <!-- Google font -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+    <!-- Font Awesome Icon -->
+    <link rel="stylesheet" href="css/font-awesome.min.css">
 
-  <!-- Custom stlylesheet -->
-  <link type="text/css" rel="stylesheet" href="css/style.css" />
-  <title th:text=${q}></title>
+    <!-- Custom stlylesheet -->
+    <link type="text/css" rel="stylesheet" href="css/style.css" />
+    <title th:text=${q}></title>
 
 </head>
 
 <body>
-  <header class="p-2 bg-dark text-white sticky-top justify-content-center">
-    <div class="container">
-        <div class="d-flex flex-wrap justify-content-lg-start">
-            <a class="navbar-brand text-white mr-auto mr-lg-0 fs-1" href="#">GADA</a>
+    <header class="p-2 bg-dark text-white">
+        <div class="container">
+            <div class="d-flex flex-wrap justify-content-lg-start">
+                <a class="navbar-brand text-white mr-auto mr-lg-0 fs-1" href="#">GADA</a>
 
-            <ul class="nav col-12 col-lg-auto align-items-end me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="/" class="nav-link px-2 text-secondary">Home</a></li>
-                <li>
-                    <a href="#" class="nav-link px-2 text-white">Campaign </a></li>
-                <li> <a class="nav-link px-2 text-white" href="#">Notifications</a></li>
-                <li class=nav-link>
-                    <form class="form-inline my-2 my-lg-0 d-flex flex-grow-1" th:action="@{/Search}" method="get">
-                        <input class="form-control  rounded-0 flex-grow-1 border-0" id="q" type="text" name="q" th:value=${q} placeholder="Search Donation Campaigns" aria-label="Search">
-                        <button class="btn btn-outline-secondary rounded-0 " type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-3"><circle cx="10.5" cy="10.5" r="7.5"></circle><line x1="21" y1="21" x2="15.8" y2="15.8"></line></svg>
-          </button>
-                    </form>
-                </li>
-               
+                <ul class="nav col-12 col-lg-auto align-items-end me-lg-auto mb-2 justify-content-center mb-md-0">
+                    <li><a href="/" class="nav-link px-2 text-secondary">Home</a></li>
+                    <li>
+                        <span sec:authorize="isAuthenticated">
+                      <a class="nav-link px-2 text-white" href="client">Profile</a></span></li>
 
-                <li class=nav-link>
-                    <span sec:authorize="!isAuthenticated()">
-            <form th:action="@{/login}" method="get">
-              <input type="submit"  class="btn btn-sm btn-primary"  value="Log In"/>
-              <input  th:action="@{/register}" type="submit" class="btn btn-sm btn-primary" value="Sign Up"/>
-            </form>
-          </span>
-                </li>
-                <li class=nav-link>
-                    <span sec:authorize="isAuthenticated()">
-                        <form th:action="@{/logout}" method="post">
-                            <input type="submit" class="btn btn-sm btn-light " value="Log Out" />
-                        </form>
+                    <li>
+                        <span sec:authorize="hasAnyAuthority('CLIENT','ADMIN')">
+                          <a class="nav-link px-2 text-white" href="/client/posts">My Posts</a></span></li>
+
+                    <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+  <span class="navbar-toggler-icon"></span>
+</button>
+
+                    <li class=nav-link style="right:0;">
+                        <span sec:authorize="!isAuthenticated()">
+        <form th:action="@{/login}" method="get">
+          <input type="submit"  class="btn btn-sm btn-primary"  value="Log In"/>
+          <input  th:action="@{/register}" type="submit" class="btn btn-sm btn-primary" value="Sign Up"/>
+        </form>
+      </span>
                     </li>
-                  <li sec:authorize="hasAnyAuthority('CLIENT', 'ADMIN')" class=nav-link>
+
+                    <li sec:authorize="hasAnyAuthority('CLIENT', 'ADMIN')" class=nav-link style="right:0;">
                         <a href="/post" class="text-decoration-none">
                             <button type="button" class="btn btn-sm btn-success">Add Post </button></a>
                         </span>
-                    <span sec:authorize="hasAuthority('ADMIN')">
-            <span class="dropdown col">
-              <button class="btn btn-sm btn-success dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                Admin
-              </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li><a class="dropdown-item" href="/users">View users</a></li>
-                <li><a class="dropdown-item" href="/listpost">View posts</a></li>
-              </ul>
-            </span>
-                    </span>
-                </li>
-            </ul>
-        </div>
+                        <span sec:authorize="hasAuthority('ADMIN')">
+        <span class="dropdown col">
+          <button class="btn btn-sm btn-success dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+            Admin
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li><a class="dropdown-item" href="/users">View users</a></li>
+            <li><a class="dropdown-item" href="/listpost">View posts</a></li>
+          </ul>
+        </span>
+                        </span>
+                    </li>
+                    <li class=nav-link>
+                        <span sec:authorize="isAuthenticated()">
+                  <form th:action="@{/logout}" method="post">
+                      <input type="submit" class="btn btn-sm btn-light " value="Log Out" />
+                  </form>
+              </li>
+        </ul>
     </div>
+</div>
 </header>
+
 
       <main class="min-vh-100">
     
@@ -138,13 +140,15 @@
       &copy; 2020 <b>GEDA</b> All rights reserved.
     </div>
   </footer>
-  <script
-    src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"
-    data-auto-a11y="true"
-  ></script>
+  <script th:src="@{\js\bootstrap.bundle.min.js}"></script>
 
-    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
-    
+  <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" data-auto-a11y="true"></script>
+  <script src="js/jquery.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <!-- <script src="js/slick.min.js"></script> -->
+  <!-- <script src="js/nouislider.min.js"></script> -->
+  <script src="js/jquery.zoom.min.js"></script>
+  <script src="js/main.js"></script>
 </body>
 
 </html>

@@ -50,6 +50,7 @@ public class FundraiserController {
         model.addAttribute("post", posts);
         model.addAttribute("post", posts);
         List<Donation> donations = this.dRepo.findDonationByPostId(posts);
+
         List<Donation> recentDonations = donations.size() < 5 ? donations : donations.subList(donations.size()-5, donations.size());
         Collections.reverse(recentDonations);
         
@@ -58,6 +59,7 @@ public class FundraiserController {
         Comment c = new Comment();
         List<Comment> byPost = this.cRepo.findByPostId(postId);
         
+
         model.addAttribute("comment", c);
         // model.addAttribute("uuu",c.getUser().getUsername());
         model.addAttribute("comments", byPost);
@@ -79,6 +81,7 @@ public class FundraiserController {
         } else {
             username = principal.toString();
         }
+
         model.addAttribute("curUser", username);
 
         return "fundraiser";
@@ -86,6 +89,7 @@ public class FundraiserController {
 
     @PostMapping("/fundraiser/{postId}/c")
     public String postController(@ModelAttribute("c") Comment c, @PathVariable Long postId, Model model) {
+
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User myUser;
         if (principal instanceof UserDetails) {
@@ -95,6 +99,7 @@ public class FundraiserController {
             String username = principal.toString();
             myUser = this.uRepo.findByUsername(username);
         }
+
         c.setUser(myUser);
         c.setPost(this.repo.findPostById(postId));
         this.cRepo.save(c);
@@ -107,6 +112,7 @@ public class FundraiserController {
         
         this.cRepo.deleteById(cId);
         return "redirect:/fundraiser/{postId}";
+
     }
 
     // @PostMapping("fundraiser/{postId}/edit")

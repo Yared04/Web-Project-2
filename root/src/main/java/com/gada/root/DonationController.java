@@ -71,6 +71,7 @@ public class DonationController {
                 donation.setUser(activUser);}
             donation.setDate(ldt);
             donation.setPost(post);
+
             
             this.pRepo.save(post);
             this.repo.save(donation);
