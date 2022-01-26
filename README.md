@@ -31,6 +31,9 @@ For this project we will have 3 type of users;
  
 
 
+******************************************************
+- We are planning to include an api integration for the next project, that is why we left the page after donating empty.
+- In order to be an admin one has to manually change one's role in the database(user_roles table),because when registering everyone is given a user role automatically, only for the first time though.After that the admin can change the roles of other users.
 
 
 
