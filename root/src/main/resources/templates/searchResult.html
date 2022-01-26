@@ -23,12 +23,16 @@
                 <ul class="nav col-12 col-lg-auto align-items-end me-lg-auto mb-2 justify-content-center mb-md-0">
                     <li><a href="/" class="nav-link px-2 text-secondary">Home</a></li>
                     <li>
-                        <a href="#" class="nav-link px-2 text-white">Campaign </a></li>
-                    <li> <a class="nav-link px-2 text-white" href="#">Notifications</a></li>
+                        <span sec:authorize="hasAuthority('CLIENT')">
+                      <a class="nav-link px-2 text-white" href="client">Profile</a></span></li>
 
-                    <!-- <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <li>
+                        <span sec:authorize="hasAnyAuthority('CLIENT','ADMIN')">
+                          <a class="nav-link px-2 text-white" href="/client/posts">My Posts</a></span></li>
+
+                    <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
   <span class="navbar-toggler-icon"></span>
-</button> -->
+</button>
 
                     <li class=nav-link style="right:0;">
                         <span sec:authorize="!isAuthenticated()">

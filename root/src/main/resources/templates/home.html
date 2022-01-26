@@ -41,7 +41,12 @@
                             </span>
                         </span>
                     </li>
-                    <li> <a class="nav-link px-2 text-white" href="#">Notifications</a></li>
+                    <li>
+                        <span sec:authorize="hasAuthority('CLIENT')">
+                        <a class="nav-link px-2 text-white" href="client">Profile</a></span></li>
+                    <li>
+                        <span sec:authorize="hasAnyAuthority('CLIENT','ADMIN')">
+                                <a class="nav-link px-2 text-white" href="/client/posts">My Posts</a></span></li>
                     <li class=nav-link>
                         <form class="form-inline my-2 my-lg-0 d-flex flex-grow-1" th:action="@{/Search}" method="get">
                             <input class="form-control  rounded-0 flex-grow-1 border-0" id="q" type="text" name="q" placeholder="Search Donation Campaigns" aria-label="Search">

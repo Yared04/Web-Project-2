@@ -8,6 +8,9 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 // import org.apache.tomcat.util.http.fileupload.FileUpload;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +33,8 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class HomeController {
     private final PostsRepositary postRepo;
+    @Autowired
+    private UserRepository userRepo;
 
     @GetMapping("/")
 
@@ -77,6 +82,16 @@ public class HomeController {
                 return "addPosts";
 
             }
+            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            User myUser;
+            if (principal instanceof UserDetails) {
+                String username = ((UserDetails) principal).getUsername();
+                myUser = this.userRepo.findByUsername(username);
+            } else {
+                String username = principal.toString();
+                myUser = this.userRepo.findByUsername(username);
+            }
+            post.setUser(myUser);
             this.postRepo.save(post);
 
             return "redirect:/";

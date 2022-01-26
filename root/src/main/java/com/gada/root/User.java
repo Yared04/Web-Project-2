@@ -2,6 +2,8 @@ package com.gada.root;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -19,6 +21,7 @@ import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
 
 import lombok.Data;
 
@@ -38,6 +41,8 @@ public class User {
     private String username;
     @Column(nullable = false, length = 64)
     private String password;
+    @OneToMany(mappedBy = "user")
+    Set<Posts> posts;
     @ManyToMany(fetch= FetchType.EAGER) 
         @JoinTable(
         name = "user_roles",

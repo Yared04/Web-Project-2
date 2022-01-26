@@ -11,9 +11,15 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public class CustomUserDetails  implements UserDetails{
 
+    
     private User user;
     public CustomUserDetails(User user){
         this.user = user;
+
+    }
+    private Role role;
+    public CustomUserDetails(Role role){
+        this.role = role;
 
     }
     @Override
@@ -66,5 +72,17 @@ public class CustomUserDetails  implements UserDetails{
     public String getFulllName(){
         return user.getFirstName() + " " + user.getLastName();
     }
-    
+    public void SetFirstName(String firstName){
+        this.user.setFirstName(firstName);
+    }
+    public void SetLastName(String lastName){
+        this.user.setLastName(lastName);
+    }
+    // public boolean hasRole(String roleName){
+    //     return user.hasRole(roleName);
+    // }
+    // public void setRole(Role userRole) {
+    //     this.user.setRoles(userRole);
+        
+    // }
 }

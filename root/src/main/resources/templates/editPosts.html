@@ -36,7 +36,12 @@
                             </span>
                         </span>
                     </li>
-                    <li> <a class="nav-link px-2 text-white" href="#">Notifications</a></li>
+                    <li>
+                        <span sec:authorize="hasAuthority('CLIENT')">
+                        <a class="nav-link px-2 text-white" href="client">Profile</a></span></li>
+                    <li>
+                        <span sec:authorize="hasAnyAuthority('CLIENT','ADMIN')">
+                                <a class="nav-link px-2 text-white" href="/client/posts">My Posts</a></span></li>
                     <li class=nav-link>
                         <form class="form-inline my-2 my-lg-0 d-flex flex-grow-1" th:action="@{/Search}" method="get">
                             <input class="form-control  rounded-0 flex-grow-1 border-0" id="q" type="text" name="q" placeholder="Search Donation Campaigns" aria-label="Search">
@@ -84,9 +89,9 @@
                 Error</span>
             </div>
             <div>
-                <label class="form-label" for="thyme"> thyme: </label>
-                <textarea th:field="*{thyme}" rows="4" type="text" th:class="|form-control ${#fields.hasErrors('thyme')? 'is-invalid': 'is-valid'}|"></textarea>
-                <span class="invalid-feedback" th:if="${#fields.hasErrors('thyme')}" th:errors="*{thyme}">thyme
+                <label class="form-label" for="theme"> Theme: </label>
+                <textarea th:field="*{theme}" rows="4" type="text" th:class="|form-control ${#fields.hasErrors('theme')? 'is-invalid': 'is-valid'}|"></textarea>
+                <span class="invalid-feedback" th:if="${#fields.hasErrors('theme')}" th:errors="*{theme}">theme
             Error</span>
             </div>
             <div>
@@ -118,7 +123,6 @@
                 <input name="image" type="file" accept="image/png, image/jpeg, image/jpg" title="Only .jpg, .jpeg, .png files are allowed" required>
             </div>
             <input type="submit" value="Update" class="btn btn-primary center">
-
             </form>
             </main>
             <footer class="text-center text-white bg-dark">

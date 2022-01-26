@@ -11,13 +11,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class PostService {
-    @Autowired
-    private UserRepository userRepo;
+    
     @Autowired
     private PostsRepositary postRepo;
-public void saveIdtoPost(Posts post){
-User p = userRepo.
-}
   
     public List<Posts> listAll(){
         return (List<Posts>) postRepo.findAll();

@@ -36,7 +36,12 @@
                             </span>
                         </span>
                     </li>
-
+                    <li>
+                        <span sec:authorize="hasAuthority('CLIENT')">
+                        <a class="nav-link px-2 text-white" href="client">Profile</a></span></li>
+                    <li>
+                        <span sec:authorize="hasAnyAuthority('CLIENT','ADMIN')">
+                              <a class="nav-link px-2 text-white" href="/client/posts">My Posts</a></span></li>
                     <li class=nav-link>
                         <form class="form-inline my-2 my-lg-0 d-flex flex-grow-1" th:action="@{/Search}" method="get">
                             <input class="form-control  rounded-0 flex-grow-1 border-0" id="q" type="text" name="q" placeholder="Search Donation Campaigns" aria-label="Search">
@@ -48,8 +53,8 @@
 
                     <li class=nav-link>
                         <span sec:authorize="!isAuthenticated()">
-                <form th:action="@{/register}" method="get">
-                  <input type="submit"  class="btn btn-sm btn-outline-primary"  value="Sign Up"/>
+                <form th:action="@{/login}" method="get">
+                  <input type="submit"  class="btn btn-sm btn-outline-primary"  value="Log In"/>
                  
                 </form>
               </span>
@@ -70,59 +75,92 @@
             </div>
         </div>
     </header>
-    <main class="min-vh-100">
-        <div class="container">
-            <h1>Log In</h1>
-            <br>
-            <form th:action="@{/login}" th:object="${user}" method="post">
-                <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label">Username</label>
-                    <div class="col-sm-4">
-                        <input type="text" th:field="*{username}" class="form-control" required />
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label">Password</label>
-                    <div class="col-sm-4">
-                        <input type="password" th:field="*{password}" class="form-control" required minlength="6" maxlength="10" />
 
-                    </div>
-                </div>
-                <div th:if="${param.error}" class="alert alert-error" style="color:red;">
-                    Invalid Username or Password.
-                </div>
-                <div>
-                    <button type="submit" class="btn btn-primary">Log In</button>
-                </div>
-            </form>
-        </div>
-    </main>
-    <footer class="text-center text-white bg-dark">
-        <div class="container pt-3">
-            <section class="mb-3">
-                <a class="btn btn-link btn-floating text-white btn-lg m-1" href="#!" role="button" data-mdb-ripple-color="dark"><i class="fab fa-facebook-f"></i
-        ></a>
-                <a class="btn btn-link btn-floating text-white btn-lg m-1" href="#!" role="button" data-mdb-ripple-color="dark"><i class="fab fa-twitter"></i
-        ></a>
-                <a class="btn btn-link btn-floating text-white btn-lg m-1" href="#!" role="button" data-mdb-ripple-color="dark"><i class="fab fa-instagram"></i
-        ></a>
-                <a class="btn btn-link btn-floating text-white btn-lg m-1" href="#!" role="button" data-mdb-ripple-color="dark"><i class="fab fa-github"></i
-        ></a>
-            </section>
-        </div>
-        <div class="text-center p-2" style="background-color: rgba(0, 0, 0, 0.2)">
-            &copy; 2020 <b>GEDA</b> All rights reserved.
-        </div>
-    </footer>
-    <script th:src="@{\js\bootstrap.bundle.min.js}"></script>
+      <main class="min-vh-100">
+    <form th:action="@{/client/update}" th:object="${user}" method="post" style="max-width: 600px; margin: 0 auto;">
+        <input type="hidden" name=${user_id}  id=${user_id} value=${user_id}/>
+        <div class="m-5">
+            <div class="form-group row">
 
-    <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" data-auto-a11y="true"></script>
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <!-- <script src="js/slick.min.js"></script> -->
-    <!-- <script src="js/nouislider.min.js"></script> -->
-    <script src="js/jquery.zoom.min.js"></script>
-    <script src="js/main.js"></script>
+                    <input type="hidden" th:field="*{username}" class="form-control" required />
+             
+            </div>
+
+
+            <input type="hidden" th:field="*{password}" class="form-control" required minlength="6" maxlength="10" />
+
+
+            <div class="form-group row">
+                <label class="col-7 col-form-label">First Name: </label>
+                <div class="col-8">
+                    <input type="text" name="firstName"  id="firstName" th:value="*{firstName}" class="form-control" required minlength="2" maxlength="20" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-7 col-form-label">Last Name: </label>
+                <div class="col-8">
+                    <input type="text" th:field="*{lastName}" class="form-control" required minlength="2" maxlength="20" />
+                </div>
+            </div>
+          
+             <input type="checkbox"  th:each="role: ${listRoles}" th:field="*{roles}" th:text="${role.name}" th:value="${role.id}" onclick="return false;" />
+            <div>
+                <button type="submit" class="btn btn-primary">Update</button>
+            </div>
+        </div>
+    </form>
+    <form >
+
+
+    </form>
+</main>
+<footer class="text-center text-white bg-dark">
+    <div class="container pt-3">
+      <section class="mb-3">
+        <a
+          class="btn btn-link btn-floating text-white btn-lg m-1"
+          href="#!"
+          role="button"
+          data-mdb-ripple-color="dark"
+          ><i class="fab fa-facebook-f"></i
+        ></a>
+        <a
+          class="btn btn-link btn-floating text-white btn-lg m-1"
+          href="#!"
+          role="button"
+          data-mdb-ripple-color="dark"
+          ><i class="fab fa-twitter"></i
+        ></a>
+        <a
+          class="btn btn-link btn-floating text-white btn-lg m-1"
+          href="#!"
+          role="button"
+          data-mdb-ripple-color="dark"
+          ><i class="fab fa-instagram"></i
+        ></a>
+        <a
+          class="btn btn-link btn-floating text-white btn-lg m-1"
+          href="#!"
+          role="button"
+          data-mdb-ripple-color="dark"
+          ><i class="fab fa-github"></i
+        ></a>
+      </section>
+    </div>
+    <div class="text-center p-2" style="background-color: rgba(0, 0, 0, 0.2)">
+      &copy; 2020 <b>GEDA</b> All rights reserved.
+    </div>
+  </footer>
+  <script th:src="@{\js\bootstrap.bundle.min.js}"></script>
+
+  <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" data-auto-a11y="true"></script>
+  <script src="js/jquery.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <!-- <script src="js/slick.min.js"></script> -->
+  <!-- <script src="js/nouislider.min.js"></script> -->
+  <script src="js/jquery.zoom.min.js"></script>
+  <script src="js/main.js"></script>
 </body>
 
 </html>

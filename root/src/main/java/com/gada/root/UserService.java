@@ -31,6 +31,9 @@ userRepo.save(user);
     public User get(Integer id) {
         return userRepo.findById(id).get();
     }
+    public User getByUsername(String username){
+        return userRepo.findByUsername(username);
+    }
      
     public List<Role> listRoles() {
         return roleRepo.findAll();

@@ -2,9 +2,12 @@ package com.gada.root;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 // import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,6 +16,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 // import javax.persistence.Transient;
@@ -70,15 +74,21 @@ public class Posts {
    
     // private LocalDateTime deadline;
     private Double donations;
-    @OneToMany(fetch= FetchType.EAGER) 
-    @JoinTable(
-    name = "user_posts",
-    joinColumns = @JoinColumn(name = "user_id"), 
-    inverseJoinColumns = @JoinColumn(name = "posts_id")
-)
+    @ManyToOne
+    private User user;
+//     @OneToMany(fetch= FetchType.EAGER) 
+//     @JoinTable(
+//     name = "user_posts",
+//     joinColumns = @JoinColumn(name = "user_id"), 
+//     inverseJoinColumns = @JoinColumn(name = "posts_id")
+// )
+// private Set<User> post = new  HashSet<>();
     public void addDonation(Double donation){
         this.donations += donation;
     }
+    // public void addUser(User user){
+    //     this.post.add(user);
+    // }
 
     
 
