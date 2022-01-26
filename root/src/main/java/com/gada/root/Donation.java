@@ -30,7 +30,7 @@ public class Donation {
 
     @Min(value = 5, message = "minimum allowed donation is 5 ETB")
     @NotNull
-    private Double amount;
+    private float amount;
 
     private String donatorName;
     @NotBlank(message = "You haven't entered account")
@@ -40,6 +40,9 @@ public class Donation {
 
     @ManyToOne
     private Posts post;
-
     
+    //optional
+    @ManyToOne
+    private User user;
+   
 }

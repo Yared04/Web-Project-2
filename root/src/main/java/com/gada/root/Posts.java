@@ -66,13 +66,14 @@ public class Posts {
     @NotNull(message = "*Goal is required")
     private Long goal;
    
+
     private LocalDateTime deadline;
-    private Double donations;
+    private float totalAmount;
+    //ONe to many 
+    @OneToMany(mappedBy = "post")
+    private List<Comment> comments;
 
-    public void addDonation(Double donation){
-        this.donations += donation;
-    }
-    
-
+    @OneToMany(mappedBy = "post")
+    private List<Donation> donations;
 
 }

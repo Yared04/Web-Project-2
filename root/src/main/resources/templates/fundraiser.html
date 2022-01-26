@@ -1,4 +1,4 @@
-Naty, [25/01/2022 10:20 AM]
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
@@ -9,6 +9,7 @@ Naty, [25/01/2022 10:20 AM]
   <title>name</title>
   <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
   <link th:href="@{/css/fundraiser.css}" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body class="bg-light">
@@ -105,25 +106,25 @@ Naty, [25/01/2022 10:20 AM]
           </div>
         </div>
 
-Naty, [25/01/2022 10:20 AM]
-<div class="donate-card col-md-4">
+
+        <div class="donate-card col-md-4">
           <div class="my-3 p-3 bg-body rounded shadow-sm">
-            <h5 class="card-title" th:text=${totalAmount}>ETB Raised</h5>
-            <h6 class="card-subtitle mb-2 text-muted">of 1000 Goal</h6>
-            <h5 class="m-0" th:text=${donations}>837</h5>
+            <h5 class="card-title" th:text = "|${post.totalAmount} ETB Raised|">ETB Raised</h5>
+            <h6 class="card-subtitle mb-2 text-muted" th:text="|of ${post.Goal} Goal|">Goal</h6>
+            <h5 class="m-0" th:text=${donationAmount}></h5>
             <p class="text-muted">Donations</p>
 
             <div class="progress" style="height: 10px;">
-              <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0"
+              <div class="progress-bar" role="progressbar" th:style="|width: ${((post.totalAmount*100)/post.Goal)}%;|" aria-valuenow="25" aria-valuemin="0"
                 aria-valuemax="100"></div>
 
             </div>
-            <h6 class="card-subtitle m-2 text-muted">500 ETB left to reach Goal</h6>
+            <h6 class="card-subtitle m-2 text-muted" th:if="${post.goal &gt; post.totalAmount}" th:text="|${(post.Goal-post.totalAmount)} ETB left to reach ${post.Goal} |">500 ETB left to reach Goal</h6>
 
-            <a th:href="@{'/fundraiser/'+${post.id}+'/donate'}" class="btn btn-warning w-100 mt-2 mb-2 ">Donate Now</a>
+            <a th:href="@{'/fundraiser/'+${post.id}+'/donate'}" class="btn btn-warning w-100 mt-2 mb-2 " >Donate Now</a>
             <button class="btn btn-info w-100 mb-2 ">Share This Campaign</button>
             <h6 class="border-bottom pb-2 mb-0">Recent Donations</h6>
-            <div class="d-flex text-muted pt-3">
+            <div class="d-flex text-muted pt-3" th:each ="d : ${Donations}">
               <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32"
                 xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32"
                 preserveAspectRatio="xMidYMid slice" focusable="false">
@@ -133,44 +134,63 @@ Naty, [25/01/2022 10:20 AM]
               </svg>
 
               <p class="pb-3 mb-0 small lh-sm border-bottom">
-                <strong class="d-block text-gray-dark">Name</strong>
-                500 ETB
+                <strong class="d-block text-dark" th:text=${d.donatorName}>Name</strong>
+                <small th:text=${d.amount}></small>
               </p>
             </div>
           </div>
+        </div>
+
 
 
 
 
         </div>
+        
 
 
 
 
         <!-- Comments -->
         <div class="my-3 p-3 bg-body rounded shadow-sm">
-          <h3 class="border-bottom pb-2 mb-0">Comments</h3>
+          <h3 class="border-bottom pb-2 mb-0" id="comments">Comments</h3>
 
 
-          <div class="d-flex text-muted pt-3" th:each="comment : ${comments}">
+          <div class="d-flex text-muted pt-1" th:each="c : ${comments}">
+            
+            <dl>
+
+            
             <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32"
               xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32"
               preserveAspectRatio="xMidYMid slice" focusable="false">
-              <title>Placeholder</title>
-              <rect width="100%" height="100%" fill="#007bff" /><text x="50%" y="50%" fill="#007bff"
+              <rect width="100%" height="100%" fill="#007bff" /><text x="40%" y="40%" fill="#007bff"
                 dy=".3em">32x32</text>
             </svg>
-
-            <p class="pb-3 mb-0 small lh-sm border-bottom" th:text="${comment.comment}">
+             <span class="text-gray-dark" style="cursor:pointer;" th:text = "${c.getUser().getUsername()}"></span>
+            
+            <p class="pb-1 mb-0 small bg-light" style="margin-left: 3rem;  max-width: 60%; 
+             border: 1px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; border-top-right-radius: 10px; padding: 1.2rem;" 
+             
+            th:text="${c.comment}">
               <strong class="d-block text-gray-dark">Name</strong>
               may god be with you in all your endeavors
             </p>
+            
+            <form th:action="@{'/fundraiser/' + ${post.id} + '/delete/'+${c.id}}"  th:object="${comment}" method="post">
+                          <textarea th:field=*{comment} onkeyup="success()" class="form-control" rows="4" cols="15" hidden></textarea>
+
+              <span th:if="${c.getUser().getUsername()}==${curUser}"><button class="btn" type="submit" value="submit"><i
+                    class="fas fa-archive" style="cursor: pointer;"></i></button></span>
+             </form>
+          
           </div>
 
-
-          <form method="post" th:action="@{'/fundraiser/'+ ${post.id}}" class="container w-50 m-5" th:object="${com}">
-            <textarea name="comment" id="comment" class="form-control" rows="4" cols="15"></textarea>
-            <button type="submit" value="submit" class="btn btn-primary my-3">Comment</button>
+          <div sec:authorize = "!isAuthenticated()"> <a href="/login">Login(Sign up) to comment and be part of the community!</a></div>
+          <form  th:action="@{'/fundraiser/' + ${post.id} + '/c'}" method="post" class="container w-50 m-5" th:object="${c}" sec:authorize = "isAuthenticated()">
+            
+            <textarea  name="comment"  id="comment" onkeyup="success()" class="form-control" rows="4" cols="15"></textarea>
+            <button type="submit" id="commentbtn" class="btn btn-primary my-3" disabled>Comment</button>
           </form>
 
 
@@ -199,8 +219,9 @@ Naty, [25/01/2022 10:20 AM]
   </footer>
   <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" data-auto-a11y="true"></script>
 
-Naty, [25/01/2022 10:20 AM]
 <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+
+<script th:src="@{/js/main.js}"></script>
 </body>
 
 </html>
