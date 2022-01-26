@@ -1,8 +1,5 @@
 package com.gada.root;
 
-
-
-
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,9 +11,11 @@ import javax.websocket.server.PathParam;
 import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties.Authentication;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,6 +25,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
@@ -41,42 +42,77 @@ public class FundraiserController {
     private DonationRepository dRepo;
     @Autowired
     private final CommentRepositary cRepo;
+    private final UserRepository uRepo;
 
     @GetMapping("/fundraiser/{postId}")
-    public String showFundraiser(@PathVariable Long postId, Model model){
+    public String showFundraiser(@PathVariable Long postId, Model model) {
         Posts posts = this.repo.findPostById(postId);
         model.addAttribute("post", posts);
         List<Donation> donations = this.dRepo.findDonationByPostId(posts);
-        List<Donation> recentDonations = donations.size() < 5 ? donations:donations.subList(donations.size()-5, donations.size());
-        Collections.reverse(recentDonations);
-        
-        Integer donationsAmount = donations.size();
-    
-        model.addAttribute("donations" , donationsAmount );
-        model.addAttribute("Donations", recentDonations);
-        model.addAttribute("com",new Comment());
-        List<Comment> comments = new ArrayList<>();
-        cRepo.findByPost(posts).forEach(i -> comments.add(i));
 
-        model.addAttribute("comments", comments);
-        
-       
-        return "fundraiser";}
-        
-   
-   
-        @PostMapping("/fundraiser/{postId}/comment")
-        public String postController(@PathParam("postId") Long postId, @ModelAttribute("com") Comment com, Errors errors){
-            
-            if (errors.hasErrors()){
-                log.info("has errrrror");
-                return "fundraiser";
-            }
-            Posts post = repo.findPostById(postId); 
-            com.setPost(post);
-            
-            this.cRepo.save(com);
-            return "redirect:/fundraiser/{postId}";
+        List<Donation> recentDonations = donations.size() < 5 ? donations:donations.subList(donations.size()-5, donations.size());
+
+        Collections.reverse(recentDonations);
+        Integer donationsAmount = donations.size();
+
+        Comment c = new Comment();
+        List<Comment> byPost = this.cRepo.findByPostId(postId);
+        log.info("here");
+        model.addAttribute("donations", donationsAmount);
+        model.addAttribute("Donations", recentDonations);
+        model.addAttribute("comment", c);
+        // model.addAttribute("uuu",c.getUser().getUsername());
+        model.addAttribute("comments", byPost);
+
+        List<String> u = new ArrayList<>();
+        for (Comment com : byPost) {
+            // System.out.println(com.getUser().getUsername());
+            // System.out.println("yeah");
+            u.add(com.getUser().getUsername());
+
         }
-    
+        System.out.println(u);
+        model.addAttribute("username", u);
+        String username;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails) principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+        model.addAttribute("curUser", username);
+
+        return "fundraiser";
+    }
+
+    @PostMapping("/fundraiser/{postId}/comment")
+    public String postController(@ModelAttribute("comment") Comment comment, @PathVariable Long postId, Model model) {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User myUser;
+        if (principal instanceof UserDetails) {
+            String username = ((UserDetails) principal).getUsername();
+            myUser = this.uRepo.findByUsername(username);
+        } else {
+            String username = principal.toString();
+            myUser = this.uRepo.findByUsername(username);
+        }
+        comment.setUser(myUser);
+        comment.setPost(this.repo.findPostById(postId));
+        this.cRepo.save(comment);
+
+        return "redirect:/fundraiser/{postId}#comments";
+    }
+
+    @PostMapping("/delete/{postId}/{commentId}")
+    public String deleteComment(@PathVariable Long postId, @PathVariable("commentId") String commentId) {
+        System.out.println(commentId);
+        this.cRepo.deleteById(commentId);
+        return "redirect:/fundraiser/{postId}#comments";
+    }
+
+    // @PostMapping("fundraiser/{postId}/edit")
+    // public String editComment(@PathVariable("commentId") Long postId) {
+    //     return "redirect:/fundraiser/{postId}#comments";
+    // }
+
 }

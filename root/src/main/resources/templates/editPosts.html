@@ -87,11 +87,13 @@
             <input th:field="*{title}" type="text" th:class="|form-control ${#fields.hasErrors('title')? 'is-invalid': 'is-valid'}|" >
             <span class="invalid-feedback" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">title
                 Error</span>
+
             </div>
             <div>
                 <label class="form-label" for="theme"> Theme: </label>
                 <textarea th:field="*{theme}" rows="4" type="text" th:class="|form-control ${#fields.hasErrors('theme')? 'is-invalid': 'is-valid'}|"></textarea>
                 <span class="invalid-feedback" th:if="${#fields.hasErrors('theme')}" th:errors="*{theme}">theme
+
             Error</span>
             </div>
             <div>
@@ -106,18 +108,15 @@
                 <input th:field="*{goal}" type="text" th:class="|form-control ${#fields.hasErrors('goal')? 'is-invalid': 'is-valid'}|">
                 <span class="invalid-feedback" th:if="${#fields.hasErrors('goal')}" th:errors="*{goal}">goal
             Error</span>
-            </div>
-            <!-- <div>
-                <label class="form-label" for="deadline"> deadline: </label>
-                <input type="text" th:field="*{deadline}" th:class="|form-control ${#fields.hasErrors('deadline')? 'is-invalid': 'is-valid'}|">
-                <span class="invalid-feedback" th:if="${#fields.hasErrors('deadline')}" th:errors="*{deadline}">deadline
-            Error</span>
-            </div> -->
-            <div>
-                <label class="form-label" for="accountNumber"> Bank Account Number: </label>
-                <input th:field="*{accountNumber}" type="text" th:class="|form-control ${#fields.hasErrors('accountNumber')? 'is-invalid': 'is-valid'}|">
-                <span class="invalid-feedback" th:if="${#fields.hasErrors('accountNumber')}" th:errors="*{accountNumber}">ACC Num Error</span>
-            </div>
+
+        </div>
+     
+        <div>
+            <label class="form-label" for="accountNumber"> Bank Account Number: </label>
+            <input th:field="*{accountNumber}" type="text" th:class="|form-control ${#fields.hasErrors('accountNumber')? 'is-invalid': 'is-valid'}|" >
+            <span class="invalid-feedback" th:if="${#fields.hasErrors('accountNumber')}" th:errors="*{accountNumber}">ACC Num Error</span>
+        </div>
+
             <div>
 
                 <input name="image" type="file" accept="image/png, image/jpeg, image/jpg" title="Only .jpg, .jpeg, .png files are allowed" required>

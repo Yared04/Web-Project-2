@@ -85,11 +85,14 @@
                 <input th:field="*{title}" type="text" th:class="|form-control ${#fields.hasErrors('title')? 'is-invalid': 'is-valid'}|">
                 <span class="invalid-feedback" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">title
                 Error</span>
-            </div>
-            <div>
-                <label class="form-label" for="theme"> Theme: </label>
-                <textarea th:field="*{theme}" rows="4" type="text" th:class="|form-control ${#fields.hasErrors('theme')? 'is-invalid': 'is-valid'}|"></textarea>
-                <span class="invalid-feedback" th:if="${#fields.hasErrors('theme')}" th:errors="*{theme}">theme
+
+                </div>
+        <div>
+            <label class="form-label" for="theme"> Theme: </label>
+            <textarea th:field="*{theme}" rows="4" type="text"
+                th:class="|form-control ${#fields.hasErrors('theme')? 'is-invalid': 'is-valid'}|"></textarea>
+            <span class="invalid-feedback" th:if="${#fields.hasErrors('theme')}" th:errors="*{theme}">theme
+
                 Error</span>
             </div>
             <div>
@@ -110,8 +113,8 @@
                 <span class="invalid-feedback" th:if="${#fields.hasErrors('deadline')}" th:errors="*{deadline}">deadline
                     Error</span>
             </div> -->
-            <div>
 
+        <div>
                 <label class="form-label" for="accountNumber"> Bank Account Number: </label>
                 <input th:field="*{accountNumber}" type="text" th:class="|form-control ${#fields.hasErrors('accountNumber')? 'is-invalid': 'is-valid'}|">
                 <span class="invalid-feedback" th:if="${#fields.hasErrors('accountNumber')}" th:errors="*{accountNumber}">ACC Num Error</span>
@@ -121,13 +124,13 @@
                 <input name="image" type="file" accept="image/png, image/jpeg, image/jpg" title="Only .jpg, .jpeg, .png files are allowed" required>
             </div>
             <input type="submit" value="Submit" class="btn btn-primary center">
-
             </form>
             </main>
             <footer class="text-center text-white bg-dark">
                 <div class="container pt-3">
                     <section class="mb-3">
                         <a class="btn btn-link btn-floating text-white btn-lg m-1" href="https://www.facebook.com/Gada-Ethiopia-100696342531359" role="button" data-mdb-ripple-color="dark"><i class="fab fa-facebook-f"></i
+
         ></a>
                         <a class="btn btn-link btn-floating text-white btn-lg m-1" href="#!" role="button" data-mdb-ripple-color="dark"><i class="fab fa-twitter"></i
         ></a>

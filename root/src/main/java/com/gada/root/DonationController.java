@@ -45,7 +45,7 @@ public class DonationController {
             Posts post = this.pRepo.findPostById(postId);
             donation.setDate(ldt);
             donation.setPost(post);
-            // post.addDonation(donation.getAmount());
+
             
             this.repo.save(donation);
         return "thankYou";

@@ -53,6 +53,7 @@ public class Posts {
 
     @NotNull
     @NotBlank(message = "*Description is required!")
+    @Column(columnDefinition = "MEDIUMTEXT")
     private String description;
     @NotNull
     @NotBlank(message = "*Title is required!")
@@ -64,33 +65,28 @@ public class Posts {
     private LocalDateTime date;
 
     @NotBlank
+
     @NotNull(message = "*Theme or or brief explanation of Campaign is required")
     @Size(min=40)
+
     private String theme;
-    
-    
+
     @NotNull(message = "*Goal is required")
     private Long goal;
-   
-    // private LocalDateTime deadline;
+      
     private Double donations;
     @ManyToOne
     private User user;
-//     @OneToMany(fetch= FetchType.EAGER) 
-//     @JoinTable(
-//     name = "user_posts",
-//     joinColumns = @JoinColumn(name = "user_id"), 
-//     inverseJoinColumns = @JoinColumn(name = "posts_id")
-// )
-// private Set<User> post = new  HashSet<>();
+
     public void addDonation(Double donation){
         this.donations += donation;
     }
-    // public void addUser(User user){
-    //     this.post.add(user);
-    // }
 
-    
+    @OneToMany(mappedBy = "post")
+    private List<Comment> comments;
 
+
+    @OneToMany(mappedBy = "post")
+    private List<Donation> donations;
 
 }
