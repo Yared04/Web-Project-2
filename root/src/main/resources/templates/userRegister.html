@@ -79,6 +79,32 @@
                 <form th:action="@{/register}" th:object="${user}" method="post" style="max-width: 600px; margin: 0 auto;">
 
                     <div class="row mb-3">
+                        <label class="col-4 col-form-label">First Name: </label>
+                        <div class="col-8">
+                            <input type="text" th:field="*{firstName}" class="form-control" required minlength="2" maxlength="20" />
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <label class="col-4 col-form-label">Last Name: </label>
+                        <div class="col-8">
+                            <input type="text" th:field="*{lastName}" class="form-control" required minlength="2" maxlength="20" />
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-4 col-form-label">Email: </label>
+                        <div class="col-8">
+                            <input type="text" th:field="*{email}" class="form-control" required minlength="2" maxlength="20" />
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-4 col-form-label">Phone Number: </label>
+                        <div class="col-8">
+                            <input type="text" th:field="*{phoneNumber}" class="form-control"  maxlength="15" />
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-3">
 
                         <label class="col-4 col-form-label">Username: </label>
                         <div class="col-8">
@@ -90,20 +116,6 @@
                         <label class="col-4 col-form-label">Password: </label>
                         <div class="col-8">
                             <input type="password" th:field="*{password}" class="form-control" required minlength="6" maxlength="10" />
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <label class="col-4 col-form-label">First Name: </label>
-                        <div class="col-8">
-                            <input type="text" th:field="*{firstName}" class="form-control" required minlength="2" maxlength="20" />
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <label class="col-4 col-form-label">Last Name: </label>
-                        <div class="col-8">
-                            <input type="text" th:field="*{lastName}" class="form-control" required minlength="2" maxlength="20" />
                         </div>
                     </div>
 

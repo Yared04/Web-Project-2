@@ -37,7 +37,7 @@
                         </span>
                     </li>
                     <li>
-                        <span sec:authorize="hasAuthority('CLIENT')">
+                        <span sec:authorize="isAuthenticated">
                         <a class="nav-link px-2 text-white" href="client">Profile</a></span></li>
                     <li>
                         <span sec:authorize="hasAnyAuthority('CLIENT','ADMIN')">

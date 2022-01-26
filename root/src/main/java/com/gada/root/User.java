@@ -41,6 +41,8 @@ public class User {
     private String username;
     @Column(nullable = false, length = 64)
     private String password;
+    private String phoneNumber;
+    private String email;
     @OneToMany(mappedBy = "user")
     Set<Posts> posts;
     @ManyToMany(fetch= FetchType.EAGER) 
