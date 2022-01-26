@@ -20,30 +20,60 @@
 </head>
 
 <body>
-  <header class="p-2 bg-dark text-white">
-    <div class="container">
+   <header id="navbar" class="p-2 bg-dark text-white sticky-top justify-content-center">
+        <div class="container">
+            <div class="d-flex flex-wrap justify-content-lg-start">
+                <a class="navbar-brand text-white mr-auto mr-lg-0 fs-1" href="#">GADA</a>
 
-      <div class="d-flex flex-wrap justify-content-lg-start">
-        <a class="navbar-brand text-white mr-auto mr-lg-0 fs-1" href="#">GEDA</a>
+                <ul class="nav col-12 col-lg-auto align-items-end me-lg-auto mb-2 justify-content-center mb-md-0">
+                    <li><a href="/" class="nav-link px-2 text-secondary">Home</a></li>
+                    <li>
+                        <span sec:authorize="hasAuthority('ADMIN')">
+                            <span class="dropdown col">
+                              <a class="nav-link px-2 text-white dropdown-toggle" type="text" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                Admin
+                              </a>
+                              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li><a class="dropdown-item" href="/users">View users</a></li>
+                                <li><a class="dropdown-item" href="/listpost">View posts</a></li>
+                              </ul>
+                            </span>
+                        </span>
+                    </li>
 
-        </a>
+                    <li class=nav-link>
+                        <form class="form-inline my-2 my-lg-0 d-flex flex-grow-1" th:action="@{/Search}" method="get">
+                            <input class="form-control  rounded-0 flex-grow-1 border-0" id="q" type="text" name="q" placeholder="Search Donation Campaigns" aria-label="Search">
+                            <button class="btn btn-outline-secondary rounded-0 " type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-3"><circle cx="10.5" cy="10.5" r="7.5"></circle><line x1="21" y1="21" x2="15.8" y2="15.8"></line></svg>
+              </button>
+                        </form>
+                    </li>
 
-        <ul class="nav col-12 col-lg-auto align-items-end me-lg-auto mb-2 justify-content-center mb-md-0">
-          <li><a href="/" class="nav-link px-2 text-white">Home</a></li>
-          <li><a href="#" class="nav-link px-2 text-white">Campaign Dashboard</a></li>
-          <li> <a class="nav-link px-2 text-white" href="#">Notifications</a></li>
-        </ul>
 
-        <div class="text-end">
-          <span sec:authorize="!isAuthenticated()">
-            <form th:action="@{/register}" method="get">
-              <input type="submit" class="btn btn-sm btn-warning" value="Sign Up" />
-            </form>
-          </span>
+                    <li class=nav-link>
+                        <span sec:authorize="!isAuthenticated()">
+                <form th:action="@{/register}" method="get">
+                  <input type="submit"  class="btn btn-sm btn-outline-primary"  value="Sign Up"/>
+                 
+                </form>
+              </span>
+                    </li>
+                    <li sec:authorize="hasAnyAuthority('CLIENT', 'ADMIN')" class=nav-link style="right:0;">
+                        <a href="/post" class="text-decoration-none">
+                            <button type="button" class="btn btn-success">Add Post </button></a>
+                        </span>
+
+                    </li>
+                    <li class=nav-link>
+                        <span sec:authorize="isAuthenticated()">
+                      <form th:action="@{/logout}" method="post">
+                          <input type="submit" class="btn btn-outline-primary " value="Log Out" />
+                      </form>
+                  </li>
+                </ul>
+            </div>
         </div>
-      </div>
-    </div>
-  </header>
+    </header>
   <section class="ftco-section">
     <div class="container">
       <div class="row justify-content-center">
