@@ -204,7 +204,7 @@
             th:text="${c.comment}">
               <strong class="d-block text-gray-dark">Name</strong>
               may god be with you in all your endeavors.
-              <form th:action="@{'/delete/'+ ${post.id}+'/'+ ${c.id}}" th:object="${comment}" style="display: inline;" method="post">
+              <form th:action="@{'/fundraiser/'+ ${post.id}+'/delete'+ ${c.id}}" th:object="${comment}" style="display: inline;" method="post">
               
                 <span style=" position: relative; top: -2.5rem;" th:if="${c.getUser().getUsername()}==${curUser}"><button class="btn" type="submit" value="submit"><i
                       class="fas fa-archive" style="cursor: pointer;"></i></button></span>
