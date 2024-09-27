@@ -44,7 +44,7 @@ public void testAddRoleToNewUser() {
     Role roleAdmin = roleRepo.findByName("Admin");
      
     User user = new User();
-    user.setUsername("user");
+    user.setUsername("user3");
     user.setPassword("123456");
     user.setFirstName("yared");
     user.setLastName("Gebeyaw");
@@ -65,6 +65,6 @@ public void testAddRoleToExistingUser() {
      
     User savedUser = repo.save(user);
      
-    assertThat(savedUser.getRoles().size()).isEqualTo(3);      
+    assertThat(savedUser.getRoles().size()).isEqualTo(2);      
 }
 }

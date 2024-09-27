@@ -14,12 +14,15 @@ public class PostService {
     
     @Autowired
     private PostsRepositary postRepo;
-
   
     public List<Posts> listAll(){
         return (List<Posts>) postRepo.findAll();
         
     }
+    // public List<Posts> listById(Long id){
+    //     return (List<Posts>) postRepo.findById(id).get();
+        
+    // }
     public Posts get(Long id) {
         return postRepo.findById(id).get();
     }

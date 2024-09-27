@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.OnDelete;
@@ -21,9 +22,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Comment {
    @Id
-   @GeneratedValue(generator = "system-uuid")
-   @GenericGenerator(name = "system-uuid", strategy = "uuid")
-   private String id;
+   @GeneratedValue(strategy = GenerationType.AUTO)
+   private Long id;
+   
+   @NotNull
    private String comment;
    @ManyToOne
    private Posts post;

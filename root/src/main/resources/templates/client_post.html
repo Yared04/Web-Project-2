@@ -31,17 +31,17 @@
                           </a>
                           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                             <li><a class="dropdown-item" href="/users">View users</a></li>
-                            <!-- <li><a class="dropdown-item" href="/listpost">View posts</a></li> -->
+                            <li><a class="dropdown-item" href="/listpost">View posts</a></li>
                           </ul>
                         </span>
                         </span>
                     </li>
                     <li>
                         <span sec:authorize="isAuthenticated">
-                        <a class="nav-link px-2 text-white" href="client">Profile</a></span></li>
+                        <a class="nav-link px-2 text-white" href="/client">Profile</a></span></li>
                     <li>
                         <span sec:authorize="hasAnyAuthority('CLIENT','ADMIN')">
-                                <a class="nav-link px-2 text-white" href="/client/posts">My Posts</a></span></li>
+                            <a class="nav-link px-2 text-white" href="/client/posts">My Posts</a></span></li>
                     <li class=nav-link>
                         <form class="form-inline my-2 my-lg-0 d-flex flex-grow-1" th:action="@{/Search}" method="get">
                             <input class="form-control  rounded-0 flex-grow-1 border-0" id="q" type="text" name="q" placeholder="Search Donation Campaigns" aria-label="Search">
@@ -85,20 +85,18 @@
                     <th>Product Image</th>
                     <th>Account Number</th>
                     <th>Published Date</th>
-                    <th>User ID</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="post: ${listPosts}">
+                <tr th:each="post: ${clientPosts}">
                     <td th:text="${post.id}">Post ID</td>
                     <td th:text="${post.title}">Title</td>
                     <td th:text="${post.productImg}">Product Image</td>
                     <td th:text="${post.accountNumber}">Account Number</td>
                     <td th:text="${post.date}">Published Date</td>
-                    <!-- <td th:text = "${post.user}">User ID</td> -->
-                    <td><a th:href="@{'/listpost/edit/' + ${post.id}}">Edit</a></td>
-                    <td><a th:href="@{'/listpost/delete/' + ${post.id}}">Delete</a></td>
+                    <td><a th:href="@{'/client/posts/edit/' + ${post.id}}">Edit</a></td>
+                    <td><a th:href="@{'/client/posts/delete/' + ${post.id}}">Delete</a></td>
                 </tr>
             </tbody>
         </table>

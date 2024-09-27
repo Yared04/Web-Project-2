@@ -2,14 +2,26 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-  <meta charset="ISO-8859-1">
+
+    <link th:href="@{\css\bootstrap.min.css}" rel="stylesheet" />
+    <!-- Google font -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+    <!-- Font Awesome Icon -->
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+
+    <!-- Custom stlylesheet -->
+    <link type="text/css" rel="stylesheet" href="css/style.css" />
+  
+
   <title>Sign Up - GADA</title>
   <link rel="stylesheet" href="css/style3.css">
   <link th:href="@{\css\bootstrap.min.css}" rel="stylesheet" />
 
+
 </head>
 
 <body>
+
   <header class="p-2 bg-dark text-white">
     <div class="container">
 
@@ -52,14 +64,14 @@
           <label for="username" class="inputs">Username</label>
           <input type="text" th:field="*{username}" class="form-control" />
         </div>
-        <!-- <div class="form-wrapper">
+        <div class="form-wrapper">
           <label for="phoneNumber" class="inputs">Phone Number</label>
           <input type="text" th:field="*{phoneNumber}" class="form-control" />
         </div>
         <div class="form-wrapper">
           <label for="email" class="inputs">Email</label>
           <input type="text" th:field="*{email}" class="form-control" />
-        </div> -->
+        </div> 
         <div class="form-wrapper">
           <label class="inputs">Password</label>
           <input type="password" th:field="*{password}" class="form-control" />
@@ -90,6 +102,7 @@
   <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" data-auto-a11y="true"></script>
 
   <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+
 </body>
 
 </html>

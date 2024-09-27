@@ -3,6 +3,9 @@ package com.gada.root;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+
+import java.util.Optional;
+
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -20,6 +23,7 @@ import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
 
 import lombok.Data;
 
@@ -39,6 +43,10 @@ public class User {
     private String username;
     @Column(nullable = false, length = 64)
     private String password;
+    private String phoneNumber;
+    private String email;
+    @OneToMany(mappedBy = "user")
+    Set<Posts> posts;
     @ManyToMany(fetch= FetchType.EAGER) 
         @JoinTable(
         name = "user_roles",
@@ -47,12 +55,14 @@ public class User {
     )
     private Set<Role> roles = new  HashSet<>();
 
-    // public Set<Role> getRoles(){
-    //     return roles;
-    // }
-    // public void setRoles(Set<Role> roles){
-    //     this.roles = roles;
-    // }
+    public Set<Role> getRoles(){
+        return roles;
+    }
+    public void setRoles(Set<Role> roles){
+        this.roles = roles;
+    }
+
+ 
     @OneToMany(mappedBy = "user")
     private List<Comment> comments;
     

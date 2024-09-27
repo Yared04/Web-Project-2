@@ -2,6 +2,7 @@ package com.gada.root;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -30,7 +31,7 @@ public class Donation {
 
     @Min(value = 5, message = "minimum allowed donation is 5 ETB")
     @NotNull
-    private Double amount;
+    private float amount;
 
     private String donatorName;
     @NotBlank(message = "You haven't entered account")
@@ -38,8 +39,11 @@ public class Donation {
     private String donatorAccount;
     private LocalDateTime date;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Posts post;
-
     
+    //optional
+    @ManyToOne
+    private User user;
+   
 }
